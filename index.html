@@ -1129,6 +1129,375 @@
         text-align: center;
       }
     }
+
+    /* ============ Estilos da v2: Login & Grupos ============ */
+    .tela-login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--card-borda);
+      padding: 40px;
+      border-radius: var(--raio);
+      text-align: center;
+      max-width: 450px;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--sombra);
+    }
+
+    .logo-copa-grande {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .login-card h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(95deg, #ffffff, var(--verde-claro));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-card p {
+      color: var(--texto-2);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    .botao-google {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px 24px;
+      background: #ffffff;
+      color: #1f2937;
+      border: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .botao-google:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    /* Header Profile & Group Switcher */
+    .header-perfil {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 10px 16px;
+      background: var(--card);
+      border: 1px solid var(--card-borda);
+      border-radius: var(--raio-sm);
+    }
+
+    .usuario-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .usuario-info img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--verde-claro);
+    }
+
+    .usuario-info span {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .grupo-seletor-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .seletor-grupos {
+      background: var(--bg-2);
+      color: var(--texto);
+      border: 1px solid var(--card-borda);
+      padding: 6px 12px;
+      border-radius: var(--raio-sm);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .botao-logout, .botao-dashboard {
+      background: transparent;
+      border: 1px solid var(--card-borda);
+      color: var(--texto-2);
+      padding: 6px 12px;
+      border-radius: var(--raio-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .botao-logout:hover {
+      color: var(--vermelho);
+      border-color: rgba(255,107,107,0.3);
+    }
+
+    .botao-dashboard:hover {
+      color: var(--verde-claro);
+      border-color: rgba(76,227,154,0.3);
+    }
+
+    /* Dashboard de Grupos */
+    .dashboard-grupos {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+
+    .dashboard-grupos h2 {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .grid-grupos {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .card-grupo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--card-borda);
+      padding: 20px;
+      border-radius: var(--raio);
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .card-grupo:hover {
+      transform: translateY(-2px);
+      border-color: var(--verde-claro);
+    }
+
+    .card-grupo h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .card-grupo p {
+      color: var(--texto-2);
+      font-size: 0.85rem;
+    }
+
+    .card-grupo-info {
+      flex-grow: 1;
+    }
+
+    .entrar-grupo-btn {
+      background: rgba(24, 196, 111, 0.15);
+      border: 1px solid var(--verde);
+      color: var(--verde-claro);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .dashboard-acoes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 500px) {
+      .dashboard-acoes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cartao-acao {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--card-borda);
+      padding: 24px;
+      border-radius: var(--raio);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cartao-acao h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--verde-claro);
+    }
+
+    .cartao-acao p {
+      font-size: 0.82rem;
+      color: var(--texto-2);
+      margin-bottom: 8px;
+    }
+
+    .input-dashboard {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--card-borda);
+      padding: 10px 14px;
+      border-radius: var(--raio-sm);
+      color: var(--texto);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .input-dashboard:focus {
+      border-color: var(--verde-claro);
+    }
+
+    .grupo-info-compartilhar {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--card-borda);
+      border-radius: var(--raio-sm);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .codigo-grupo-box {
+      font-family: monospace;
+      font-size: 1.1rem;
+      background: var(--bg-2);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: var(--ouro);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Modal de Vinculação */
+    .opcoes-vinculo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .opcao-vinculo-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-2);
+      border: 1px solid var(--card-borda);
+      padding: 12px 16px;
+      border-radius: var(--raio-sm);
+      color: var(--texto);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .opcao-vinculo-btn:hover {
+      border-color: var(--verde-claro);
+      background: rgba(76, 227, 154, 0.05);
+    }
+
+    .opcao-vinculo-btn .avatar-mini {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .config-premios-tabela {
+      width: 100%;
+      margin: 15px 0;
+      border-collapse: collapse;
+    }
+
+    .config-premios-tabela td {
+      padding: 6px 0;
+    }
+
+    .config-premios-tabela label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--texto-2);
+    }
+
+    .lista-membros-gerencia {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 10px;
+      border: 1px solid var(--card-borda);
+      padding: 8px;
+      border-radius: var(--raio-sm);
+    }
+
+    .membro-gerencia-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.02);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+    }
+
+    .membro-gerencia-item button {
+      background: transparent;
+      border: none;
+      color: var(--vermelho);
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    /* ======================================================= */
+    }
   </style>
 </head>
 
@@ -1146,89 +1515,161 @@
       ver os palpites de todo mundo.
     </div>
 
-    <p class="aviso-identidade">Quem é você? Toque no seu nome:</p>
-    <div class="quem-sou" id="quemSou"></div>
-
-    <nav class="abas" role="tablist">
-      <button class="aba ativa" data-aba="palpites" role="tab" aria-selected="true"><span
-          class="aba-icone">📝</span><span class="aba-rotulo">Palpites</span></button>
-      <button class="aba" data-aba="ranking" role="tab" aria-selected="false"><span class="aba-icone">🏆</span><span
-          class="aba-rotulo">Ranking</span></button>
-      <button class="aba" data-aba="resultados" role="tab" aria-selected="false"><span class="aba-icone">⚙️</span><span
-          class="aba-rotulo">Resultados</span></button>
-      <button class="aba" data-aba="regras" role="tab" aria-selected="false"><span class="aba-icone">📖</span><span
-          class="aba-rotulo">Regras</span></button>
-    </nav>
-
-    <!-- ===== Palpites ===== -->
-    <section class="painel visivel" id="painel-palpites" role="tabpanel">
-      <div id="listaPalpites"></div>
-    </section>
-
-    <!-- ===== Ranking ===== -->
-    <section class="painel" id="painel-ranking" role="tabpanel">
-      <div id="conteudoRanking"></div>
-    </section>
-
-    <!-- ===== Resultados (admin) ===== -->
-    <section class="painel" id="painel-resultados" role="tabpanel">
-      <div id="conteudoResultados"></div>
-    </section>
-
-    <!-- ===== Regras ===== -->
-    <section class="painel" id="painel-regras" role="tabpanel">
-      <div class="cartao">
-        <h3>🎯 Pontuação</h3>
-        <ul>
-          <li><span class="destaque">5 pontos</span> — acertou o placar exato</li>
-          <li><span class="destaque">3 pontos</span> — acertou o vencedor (ou empate) e o saldo de gols</li>
-          <li><span class="destaque">2 pontos</span> — acertou só o vencedor (ou que daria empate)</li>
-          <li><span class="destaque">0 ponto</span> — errou tudo (acontece nas melhores famílias 😅)</li>
-        </ul>
+    <!-- ===== TELA: LOGIN ===== -->
+    <div id="telaLogin" class="tela-login" style="display:none">
+      <div class="login-card">
+        <span class="logo-copa-grande">🏆</span>
+        <h2>Bolão Copa 2026</h2>
+        <p>Faça login com sua conta do Google para acessar seus grupos, palpitar e ver os rankings.</p>
+        <button class="botao-google" id="btnGoogleLogin">
+          <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+          </svg>
+          Entrar com o Google
+        </button>
       </div>
-      <div class="cartao">
-        <h3>🎮 Níveis</h3>
-        <p>Seus pontos no bolão são seu XP. Suba de nível e esfregue na cara dos amigos:</p>
-        <ul>
-          <li>🐀 <span class="destaque">Pé de Rato</span> (0+) · 🥾 <span class="destaque">Boleiro de Várzea</span>
-            (8+) · 🌱 <span class="destaque">Promessa da Base</span> (20+)</li>
-          <li>✨ <span class="destaque">Farmando Aura</span> (40+) · 🔟 <span class="destaque">Camisa 10</span> (70+)
-            · ⭐ <span class="destaque">Craque da Copa</span> (110+) · 🐐 <span class="destaque">GOAT Eterno</span>
-            (160+)</li>
-        </ul>
-      </div>
-      <div class="cartao">
-        <h3>🏅 Conquistas</h3>
-        <ul>
-          <li>🎯 <span class="destaque">Na Mosca</span> — acerte 1 placar exato</li>
-          <li>🔮 <span class="destaque">Mãe Diná</span> — acerte 3 placares exatos</li>
-          <li>🔥 <span class="destaque">Pé Quente</span> — pontue em 3 jogos seguidos</li>
-          <li>🌋 <span class="destaque">Modo Insano</span> — pontue em 5 jogos seguidos</li>
-          <li>📋 <span class="destaque">Assíduo</span> — palpite em 20 jogos</li>
-          <li>🏃 <span class="destaque">Maratonista</span> — palpite nos 72 jogos da fase de grupos</li>
-          <li>🥶 <span class="destaque">Pé Frio</span> — zere 4 jogos seguidos (ninguém quer essa 😅)</li>
-        </ul>
-      </div>
-      <div class="cartao">
-        <h3>⏰ Prazo</h3>
-        <p>O palpite de cada jogo trava automaticamente <span class="destaque">à meia-noite do dia do jogo</span>
-          (horário de Brasília). Depois disso, ninguém mais altera — nem chorando.</p>
-      </div>
-      <div class="cartao">
-        <h3>🥇 Desempate</h3>
-        <p>Em caso de empate em pontos, vence quem tiver mais <span class="destaque">placares exatos</span>. Persistindo
-          o empate, mais acertos de vencedor. Persistindo ainda, divide a taça (e a conta do churrasco).</p>
-      </div>
-      <div class="cartao">
-        <h3>⚽ Jogos do mata-mata</h3>
-        <p>Os confrontos do mata-mata são adicionados pelo administrador do bolão conforme a Copa avança, na aba
-          <b>Resultados</b>.
-        </p>
-      </div>
-    </section>
+    </div>
 
-    <div class="barra-salvar" id="barraSalvar" style="display:none">
-      <button class="botao" id="botaoSalvar">💾 Salvar meus palpites</button>
+    <!-- ===== TELA: DASHBOARD GRUPOS ===== -->
+    <div id="telaDashboardGrupos" class="dashboard-grupos" style="display:none">
+      <h2>Meus Grupos 👥</h2>
+      <div id="listaGrupos" class="grid-grupos"></div>
+
+      <div class="dashboard-acoes">
+        <div class="cartao-acao">
+          <h4>Criar Novo Grupo 🏆</h4>
+          <p>Crie um bolão, adicione os participantes e seja o administrador.</p>
+          <input type="text" id="novoGrupoNome" class="input-dashboard" placeholder="Nome do Grupo (ex: Galera do Futebol)">
+          <input type="text" id="novoGrupoMembros" class="input-dashboard" placeholder="Nomes dos participantes (separados por vírgula)">
+          <button class="botao" id="btnCriarGrupo">🆕 Criar Grupo</button>
+        </div>
+
+        <div class="cartao-acao">
+          <h4>Entrar em um Grupo 🔑</h4>
+          <p>Digite o código de convite enviado pelo administrador do bolão.</p>
+          <input type="text" id="codigoConviteInput" class="input-dashboard" placeholder="Ex: AX78B2" style="text-transform: uppercase;">
+          <button class="botao" id="btnEntrarGrupo">🔑 Entrar no Grupo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: CONTEÚDO PRINCIPAL DO APP ===== -->
+    <div id="appMainContent" style="display:none">
+      <!-- Info Usuário & Seletor de Grupo -->
+      <div class="header-perfil">
+        <div class="usuario-info" id="perfilUsuario">
+          <!-- Foto e Nome do Google -->
+        </div>
+        <div class="grupo-seletor-container">
+          <select id="seletorGrupoAtivo" class="seletor-grupos"></select>
+          <button class="botao-dashboard" id="btnIrDashboard">🏠 Painel</button>
+          <button class="botao-logout" id="btnGoogleLogout">Sair</button>
+        </div>
+      </div>
+
+      <!-- Info Grupo Atual (Código Compartilhamento) -->
+      <div class="grupo-info-compartilhar" id="infoCompartilharGrupo" style="display:none">
+        <div>
+          <span>Grupo: <strong id="nomeGrupoAtivo"></strong></span>
+        </div>
+        <div>
+          <span>Código de Convite: <span id="codigoGrupoShare" class="codigo-grupo-box"></span></span>
+          <button class="botao-dashboard" id="btnCopiarCodigoShare" style="margin-left:8px; padding: 4px 8px;">📋 Copiar</button>
+        </div>
+      </div>
+
+      <p class="aviso-identidade">Quem é você no grupo? Toque no seu nome:</p>
+      <div class="quem-sou" id="quemSou"></div>
+
+      <nav class="abas" role="tablist">
+        <button class="aba ativa" data-aba="palpites" role="tab" aria-selected="true"><span
+            class="aba-icone">📝</span><span class="aba-rotulo">Palpites</span></button>
+        <button class="aba" data-aba="ranking" role="tab" aria-selected="false"><span class="aba-icone">🏆</span><span
+            class="aba-rotulo">Ranking</span></button>
+        <button class="aba" data-aba="resultados" role="tab" aria-selected="false"><span class="aba-icone">⚙️</span><span
+            class="aba-rotulo">Resultados</span></button>
+        <button class="aba" data-aba="regras" role="tab" aria-selected="false"><span class="aba-icone">📖</span><span
+            class="aba-rotulo">Regras</span></button>
+      </nav>
+
+      <!-- ===== Palpites ===== -->
+      <section class="painel visivel" id="painel-palpites" role="tabpanel">
+        <div id="listaPalpites"></div>
+      </section>
+
+      <!-- ===== Ranking ===== -->
+      <section class="painel" id="painel-ranking" role="tabpanel">
+        <div id="conteudoRanking"></div>
+      </section>
+
+      <!-- ===== Resultados (admin) ===== -->
+      <section class="painel" id="painel-resultados" role="tabpanel">
+        <div id="conteudoResultados"></div>
+      </section>
+
+      <!-- ===== Regras ===== -->
+      <section class="painel" id="painel-regras" role="tabpanel">
+        <div class="cartao">
+          <h3>🎯 Pontuação</h3>
+          <ul>
+            <li><span class="destaque">5 pontos</span> — acertou o placar exato</li>
+            <li><span class="destaque">3 pontos</span> — acertou o vencedor (ou empate) e o saldo de gols</li>
+            <li><span class="destaque">2 pontos</span> — acertou só o vencedor (ou que daria empate)</li>
+            <li><span class="destaque">0 ponto</span> — errou tudo (acontece nas melhores famílias 😅)</li>
+          </ul>
+        </div>
+        <div class="cartao">
+          <h3>🎮 Níveis</h3>
+          <p>Seus pontos no bolão são seu XP. Suba de nível e esfregue na cara dos amigos:</p>
+          <ul>
+            <li>🐀 <span class="destaque">Pé de Rato</span> (0+) · 🥾 <span class="destaque">Boleiro de Várzea</span>
+              (8+) · 🌱 <span class="destaque">Promessa da Base</span> (20+)</li>
+            <li>✨ <span class="destaque">Farmando Aura</span> (40+) · 🔟 <span class="destaque">Camisa 10</span> (70+)
+              · ⭐ <span class="destaque">Craque da Copa</span> (110+) · 🐐 <span class="destaque">GOAT Eterno</span>
+              (160+)</li>
+          </ul>
+        </div>
+        <div class="cartao">
+          <h3>🏅 Conquistas</h3>
+          <ul>
+            <li>🎯 <span class="destaque">Na Mosca</span> — acerte 1 placar exato</li>
+            <li>🔮 <span class="destaque">Mãe Diná</span> — acerte 3 placares exatos</li>
+            <li>🔥 <span class="destaque">Pé Quente</span> — pontue em 3 jogos seguidos</li>
+            <li>🌋 <span class="destaque">Modo Insano</span> — pontue em 5 jogos seguidos</li>
+            <li>📋 <span class="destaque">Assíduo</span> — palpite em 20 jogos</li>
+            <li>🏃 <span class="destaque">Maratonista</span> — palpite nos 72 jogos da fase de grupos</li>
+            <li>🥶 <span class="destaque">Pé Frio</span> — zere 4 jogos seguidos (ninguém quer essa 😅)</li>
+          </ul>
+        </div>
+        <div class="cartao">
+          <h3>⏰ Prazo</h3>
+          <p>O palpite de cada jogo trava automaticamente <span class="destaque">30 minutos antes do jogo começar</span>. Depois disso, ninguém mais altera — nem chorando.</p>
+        </div>
+        <div class="cartao">
+          <h3>🥇 Desempate</h3>
+          <p>Em caso de empate em pontos, vence quem tiver mais <span class="destaque">placares exatos</span>. Persistindo
+            o empate, mais acertos de vencedor. Persistindo ainda, divide a taça (e a conta do churrasco).</p>
+        </div>
+        <div class="cartao">
+          <h3>🏆 Prêmios do Grupo</h3>
+          <div id="premiosGrupoExibicao" class="cartao" style="background: rgba(255,255,255,0.02); border: none; padding: 10px 0;">
+            <!-- Prêmios dinâmicos aqui -->
+          </div>
+        </div>
+        <div class="cartao">
+          <h3>⚽ Jogos do mata-mata</h3>
+          <p>Os confrontos do mata-mata são adicionados pelo administrador do bolão conforme a Copa avança, na aba
+            <b>Resultados</b>.
+          </p>
+        </div>
+      </section>
+
+      <div class="barra-salvar" id="barraSalvar" style="display:none">
+        <button class="botao" id="botaoSalvar">💾 Salvar meus palpites</button>
+      </div>
     </div>
 
     <footer>
@@ -1238,6 +1679,25 @@
   </div>
 
   <div class="toast" id="toast"></div>
+
+  <!-- Modal de Vinculação de Nome ao Entrar no Grupo -->
+  <div class="modal-backdrop" id="modalVinculo" style="display:none">
+    <div class="modal-conteudo cartao" style="max-width: 450px;">
+      <h3>Quem é você neste grupo? 🔑</h3>
+      <p style="font-size: 0.85rem; color: var(--texto-2); margin-bottom: 12px;">
+        O administrador pré-cadastrou alguns nomes para este grupo. Você pode se vincular a um desses nomes ou criar um novo participante.
+      </p>
+      
+      <div id="listaOpcoesVinculo" class="opcoes-vinculo"></div>
+      
+      <div style="border-top: 1px solid var(--card-borda); padding-top: 12px; margin-top: 12px;">
+        <input type="text" id="novoNomeMembroInput" class="input-dashboard" placeholder="Ou crie um novo nome de participante" style="margin-bottom:8px;">
+        <button class="botao" id="btnVincularNovoNome" style="width:100%;">Criar e Entrar</button>
+      </div>
+      
+      <button class="botao secundario" id="btnCancelarVinculo" style="width:100%; margin-top:10px;">Cancelar</button>
+    </div>
+  </div>
 
   <script>
     /* ===================================================================
@@ -1406,11 +1866,15 @@
     const DIAS_SEMANA = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
 
     /* =====================================================================
-       ESTADO + PERSISTÊNCIA (Firebase ou localStorage)
+       ESTADO + PERSISTÊNCIA (Google Auth + Supabase + Local Mode Fallback)
        ===================================================================== */
     const estado = {
       eu: localStorage.getItem('bolao2026_eu') || null,
-      admin: sessionStorage.getItem('bolao2026_admin') === '1',
+      admin: false,
+      usuarioLogado: null,
+      meusGrupos: [],
+      grupoAtivo: null,
+      jogadoresGrupo: [],
       palpites: {},     // { jogador: { jogoId: {c, f} } }
       resultados: {},   // { jogoId: {c, f} }
       jogosExtras: [],  // jogos do mata-mata adicionados pelo admin
@@ -1421,54 +1885,597 @@
 
     let sb = null; // cliente do Supabase quando ativo
 
+    // Inicialização do Supabase & Fluxo de Auth
     async function iniciarPersistencia() {
       if (SUPABASE_CONFIG) {
         try {
           const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
           sb = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-          await carregarRemoto();
-          // atualização ao vivo quando qualquer amigo salva algo
+          
+          // Verificar sessão existente
+          const { data: { session } } = await sb.auth.getSession();
+          if (session) {
+            estado.usuarioLogado = session.user;
+            await carregarGruposEMembros();
+          } else {
+            // Mostrar tela de login se não estiver logado
+            atualizarExibicaoTelas();
+          }
+
+          // Ouvir mudanças de auth (login/logout)
+          sb.auth.onAuthStateChange(async (event, session) => {
+            if (session) {
+              estado.usuarioLogado = session.user;
+              await carregarGruposEMembros();
+            } else {
+              estado.usuarioLogado = null;
+              estado.meusGrupos = [];
+              estado.grupoAtivo = null;
+              estado.jogadoresGrupo = [];
+              estado.palpites = {};
+              atualizarExibicaoTelas();
+            }
+          });
+
+          // Atualizações em tempo real
           sb.channel('bolao')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'palpites' }, carregarRemoto)
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'resultados' }, carregarRemoto)
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'jogos_extras' }, carregarRemoto)
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'palpites' }, () => {
+              if (estado.grupoAtivo) carregarDadosGrupo();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'resultados' }, () => {
+              if (estado.grupoAtivo) carregarDadosGrupo();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'jogos_extras' }, () => {
+              if (estado.grupoAtivo) carregarDadosGrupo();
+            })
             .subscribe();
-          // garantia extra: recarrega ao voltar para a aba/app
-          document.addEventListener('visibilitychange', () => { if (!document.hidden) carregarRemoto(); });
+
+          document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && estado.grupoAtivo) carregarDadosGrupo();
+          });
+          
           return;
         } catch (e) {
           console.error('Falha ao iniciar o Supabase, caindo para modo local:', e);
           sb = null;
         }
       }
+      
+      // Fallback Modo Local
       document.getElementById('bannerLocal').style.display = 'block';
-      const salvo = JSON.parse(localStorage.getItem('bolao2026_dados') || '{}');
-      estado.palpites = salvo.palpites || {};
-      estado.resultados = salvo.resultados || {};
-      estado.jogosExtras = salvo.jogosExtras || [];
+      inicializarDadosLocais();
+      await carregarGruposEMembros();
+    }
+
+    // Inicializa o default local para backwards compatibility
+    function inicializarDadosLocais() {
+      let localGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+      let localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+      
+      if (localGrupos.length === 0) {
+        const defaultGrupo = {
+          id: 'grupo-local-default',
+          nome: 'Bolão da Galera (Local)',
+          codigo_convite: 'LOCAL2026',
+          premios: { "1": "Cerveja trincando 🍻", "2": "Refrigerante de 2L 🥤", "3": "Parabéns 👏" }
+        };
+        localGrupos = [defaultGrupo];
+        localMembros = [
+          { grupo_id: 'grupo-local-default', nome: 'Reinaldo', cor: '#4ce39a', role: 'admin' },
+          { grupo_id: 'grupo-local-default', nome: 'Fred', cor: '#f5c542', role: 'membro' },
+          { grupo_id: 'grupo-local-default', nome: 'Pinha', cor: '#4da3ff', role: 'membro' },
+          { grupo_id: 'grupo-local-default', nome: 'Gersinho', cor: '#ff8fab', role: 'membro' },
+          { grupo_id: 'grupo-local-default', nome: 'Otávio', cor: '#c084fc', role: 'membro' },
+        ];
+        localStorage.setItem('bolao2026_local_grupos', JSON.stringify(localGrupos));
+        localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+      }
+    }
+
+    // Carrega grupos onde o usuário participa
+    async function carregarGruposEMembros() {
+      if (sb && estado.usuarioLogado) {
+        // Modo Online
+        const { data: membros, error } = await sb
+          .from('grupo_membros')
+          .select('grupo_id, grupos(*)')
+          .or(`user_id.eq.${estado.usuarioLogado.id},email.eq.${estado.usuarioLogado.email}`);
+        
+        if (error) {
+          console.error(error);
+          avisar('Erro ao carregar seus grupos 😬', true);
+          return;
+        }
+
+        const mapGrupos = new Map();
+        for (const m of membros || []) {
+          if (m.grupos) mapGrupos.set(m.grupos.id, m.grupos);
+        }
+        estado.meusGrupos = Array.from(mapGrupos.values());
+      } else {
+        // Modo Local
+        estado.meusGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+      }
+
+      // Tenta recuperar último grupo ativo
+      const savedGroupId = localStorage.getItem('bolao2026_grupo_id');
+      if (savedGroupId && estado.meusGrupos.some(g => g.id === savedGroupId)) {
+        estado.grupoAtivo = estado.meusGrupos.find(g => g.id === savedGroupId);
+      } else if (estado.meusGrupos.length > 0) {
+        estado.grupoAtivo = estado.meusGrupos[0];
+        localStorage.setItem('bolao2026_grupo_id', estado.grupoAtivo.id);
+      } else {
+        estado.grupoAtivo = null;
+      }
+
+      if (estado.grupoAtivo) {
+        await carregarDadosGrupo();
+      } else {
+        atualizarExibicaoTelas();
+      }
+    }
+
+    // Carrega dados completos do grupo selecionado
+    async function carregarDadosGrupo() {
+      if (!estado.grupoAtivo) return;
+
+      if (sb) {
+        // Modo Online
+        const [p, r, x, m] = await Promise.all([
+          sb.from('palpites').select('*').eq('grupo_id', estado.grupoAtivo.id),
+          sb.from('resultados').select('*'),
+          sb.from('jogos_extras').select('*'),
+          sb.from('grupo_membros').select('*').eq('grupo_id', estado.grupoAtivo.id),
+        ]);
+
+        if (p.error || r.error || x.error || m.error) {
+          console.error('Erro ao carregar dados do grupo');
+          avisar('Erro ao sincronizar dados do grupo 😬', true);
+          return;
+        }
+
+        // Mapear palpites
+        const palpites = {};
+        for (const linha of p.data) {
+          (palpites[linha.jogador] = palpites[linha.jogador] || {})[linha.jogo_id] = { c: linha.casa, f: linha.fora };
+        }
+        estado.palpites = palpites;
+
+        // Resultados
+        estado.resultados = Object.fromEntries(r.data.map((l) => [l.jogo_id, { c: l.casa, f: l.fora }]));
+        
+        // Jogos extras
+        estado.jogosExtras = x.data.map((l) => ({ n: l.n, fase: l.fase, data: l.data, casa: l.casa, fora: l.fora, cidade: l.cidade || '' }));
+        
+        // Membros
+        estado.jogadoresGrupo = m.data;
+
+        // Resolver perfil logado
+        const me = m.data.find(member => member.user_id === estado.usuarioLogado.id || member.email === estado.usuarioLogado.email);
+        if (me) {
+          estado.eu = me.nome;
+          localStorage.setItem('bolao2026_eu', me.nome);
+          estado.admin = me.role === 'admin' || estado.grupoAtivo.criado_por === estado.usuarioLogado.id;
+        } else {
+          estado.eu = localStorage.getItem('bolao2026_eu');
+          const meByName = m.data.find(member => member.nome === estado.eu);
+          estado.admin = meByName ? meByName.role === 'admin' : false;
+        }
+      } else {
+        // Modo Local
+        const localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        estado.jogadoresGrupo = localMembros.filter(m => m.grupo_id === estado.grupoAtivo.id);
+
+        const localDados = JSON.parse(localStorage.getItem(`bolao2026_local_dados_${estado.grupoAtivo.id}`) || '{}');
+        estado.palpites = localDados.palpites || {};
+        estado.resultados = localDados.resultados || {};
+        estado.jogosExtras = localDados.jogosExtras || [];
+
+        estado.eu = localStorage.getItem('bolao2026_eu') || (estado.jogadoresGrupo[0]?.nome || null);
+        const me = estado.jogadoresGrupo.find(m => m.nome === estado.eu);
+        estado.admin = me ? me.role === 'admin' : true;
+      }
+
+      atualizarExibicaoTelas();
       renderizarTudo();
     }
 
-    async function carregarRemoto() {
-      const [p, r, x] = await Promise.all([
-        sb.from('palpites').select('*'),
-        sb.from('resultados').select('*'),
-        sb.from('jogos_extras').select('*'),
-      ]);
-      const erro = p.error || r.error || x.error;
-      if (erro) { console.error(erro); avisar('Erro ao carregar os dados online 😬', true); return; }
-      const palpites = {};
-      for (const linha of p.data) {
-        (palpites[linha.jogador] = palpites[linha.jogador] || {})[linha.jogo_id] = { c: linha.casa, f: linha.fora };
+    // Controla qual tela principal (Login, Dashboard ou App) deve estar visível
+    function atualizarExibicaoTelas() {
+      const login = document.getElementById('telaLogin');
+      const dash = document.getElementById('telaDashboardGrupos');
+      const app = document.getElementById('appMainContent');
+
+      // Reset
+      login.style.display = 'none';
+      dash.style.display = 'none';
+      app.style.display = 'none';
+
+      if (sb && !estado.usuarioLogado) {
+        login.style.display = 'flex';
+        return;
       }
-      estado.palpites = palpites;
-      estado.resultados = Object.fromEntries(r.data.map((l) => [l.jogo_id, { c: l.casa, f: l.fora }]));
-      estado.jogosExtras = x.data.map((l) => ({ n: l.n, fase: l.fase, data: l.data, casa: l.casa, fora: l.fora, cidade: l.cidade || '' }));
-      renderizarTudo(true);
+
+      if (!estado.grupoAtivo) {
+        dash.style.display = 'block';
+        renderizarDashboardGrupos();
+        return;
+      }
+
+      app.style.display = 'block';
+      renderizarHeaderPerfil();
+      renderizarPremios();
     }
 
+    // Renderiza o seletor de grupos no topo e dados do usuário
+    function renderizarHeaderPerfil() {
+      const perfil = document.getElementById('perfilUsuario');
+      const seletor = document.getElementById('seletorGrupoAtivo');
+      
+      if (sb && estado.usuarioLogado) {
+        const foto = estado.usuarioLogado.user_metadata.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+        perfil.innerHTML = `
+          <img src="${foto}" alt="Avatar">
+          <span>Olá, <strong>${esc(estado.usuarioLogado.user_metadata.full_name || estado.usuarioLogado.email)}</strong></span>
+        `;
+      } else {
+        perfil.innerHTML = `<span>⚽ Modo Offline (Sem Login)</span>`;
+      }
+
+      // Preenche seletor
+      seletor.innerHTML = '';
+      estado.meusGrupos.forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g.id;
+        opt.textContent = g.nome;
+        opt.selected = estado.grupoAtivo && g.id === estado.grupoAtivo.id;
+        seletor.appendChild(opt);
+      });
+
+      // Código compartilhamento
+      const infoShare = document.getElementById('infoCompartilharGrupo');
+      if (estado.grupoAtivo) {
+        infoShare.style.display = 'flex';
+        document.getElementById('nomeGrupoAtivo').textContent = estado.grupoAtivo.nome;
+        document.getElementById('codigoGrupoShare').textContent = estado.grupoAtivo.codigo_convite;
+      } else {
+        infoShare.style.display = 'none';
+      }
+    }
+
+    // Renderiza a lista de grupos no dashboard
+    function renderizarDashboardGrupos() {
+      const caixa = document.getElementById('listaGrupos');
+      caixa.innerHTML = '';
+
+      if (estado.meusGrupos.length === 0) {
+        caixa.appendChild(el(`<p class="vazio">Você não participa de nenhum grupo ainda. Crie ou entre em um ao lado! 👇</p>`));
+        return;
+      }
+
+      estado.meusGrupos.forEach(g => {
+        const card = el(`
+          <div class="card-grupo" data-id="${g.id}">
+            <div class="card-grupo-info">
+              <h3>🏆 ${esc(g.nome)}</h3>
+              <p>Código de Convite: <strong>${esc(g.codigo_convite)}</strong></p>
+            </div>
+            <button class="entrar-grupo-btn">Entrar</button>
+          </div>
+        `);
+        card.addEventListener('click', async () => {
+          estado.grupoAtivo = g;
+          localStorage.setItem('bolao2026_grupo_id', g.id);
+          await carregarDadosGrupo();
+        });
+        caixa.appendChild(card);
+      });
+    }
+
+    // Renderiza prêmios configurados
+    function renderizarPremios() {
+      const caixa = document.getElementById('premiosGrupoExibicao');
+      if (!caixa) return;
+      
+      const premios = estado.grupoAtivo?.premios || {};
+      caixa.innerHTML = `
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:8px;">
+          <li>🥇 <b>1º Lugar:</b> ${esc(premios["1"] || 'Sem prêmio definido')}</li>
+          <li>🥈 <b>2º Lugar:</b> ${esc(premios["2"] || 'Sem prêmio definido')}</li>
+          <li>🥉 <b>3º Lugar:</b> ${esc(premios["3"] || 'Sem prêmio definido')}</li>
+        </ul>
+      `;
+    }
+
+    // Criação de novos grupos
+    async function criarGrupo() {
+      const nomeInput = document.getElementById('novoGrupoNome');
+      const membrosInput = document.getElementById('novoGrupoMembros');
+      
+      const nome = nomeInput.value.trim();
+      const membrosTexto = membrosInput.value.trim();
+      
+      if (!nome) {
+        avisar('Por favor, informe o nome do grupo!', true);
+        return;
+      }
+
+      const listaNomes = membrosTexto 
+        ? membrosTexto.split(',').map(n => n.trim()).filter(Boolean)
+        : [];
+      
+      const convite = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+      if (sb && estado.usuarioLogado) {
+        // Criar no Supabase
+        const { data: gData, error: gErr } = await sb
+          .from('grupos')
+          .insert({
+            nome,
+            criado_por: estado.usuarioLogado.id,
+            codigo_convite: convite,
+            premios: { "1": "Cerveja trincando 🍻", "2": "Refrigerante de 2L 🥤", "3": "Parabéns 👏" }
+          })
+          .select()
+          .single();
+
+        if (gErr) {
+          console.error(gErr);
+          avisar('Erro ao criar grupo online 😬', true);
+          return;
+        }
+
+        // Adicionar criador e membros pré-definidos
+        const criadorNome = estado.usuarioLogado.user_metadata.full_name || 'Criador';
+        const membrosLinhas = [
+          { grupo_id: gData.id, user_id: estado.usuarioLogado.id, nome: criadorNome, email: estado.usuarioLogado.email, role: 'admin', cor: '#4ce39a' }
+        ];
+
+        listaNomes.forEach(nomeMembro => {
+          if (nomeMembro.toLowerCase() !== criadorNome.toLowerCase()) {
+            membrosLinhas.push({
+              grupo_id: gData.id,
+              nome: nomeMembro,
+              role: 'membro',
+              cor: '#' + Math.floor(Math.random()*16777215).toString(16)
+            });
+          }
+        });
+
+        const { error: mErr } = await sb.from('grupo_membros').insert(membrosLinhas);
+        if (mErr) {
+          console.error(mErr);
+          avisar('Grupo criado, mas erro ao cadastrar membros 😬', true);
+        }
+
+        avisar('🎉 Grupo online criado com sucesso!');
+      } else {
+        // Criar Localmente
+        const novoId = 'grupo-local-' + Date.now();
+        const novoGrupo = {
+          id: novoId,
+          nome,
+          codigo_convite: convite,
+          premios: { "1": "Prêmio surpresa 🥇", "2": "Prêmio surpresa 🥈", "3": "Prêmio surpresa 🥉" }
+        };
+
+        const localGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+        localGrupos.push(novoGrupo);
+        localStorage.setItem('bolao2026_local_grupos', JSON.stringify(localGrupos));
+
+        const localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        localMembros.push({ grupo_id: novoId, nome: 'Você (Admin)', role: 'admin', cor: '#4ce39a' });
+        
+        listaNomes.forEach(nomeMembro => {
+          localMembros.push({
+            grupo_id: novoId,
+            nome: nomeMembro,
+            role: 'membro',
+            cor: '#' + Math.floor(Math.random()*16777215).toString(16)
+          });
+        });
+        localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+
+        avisar('🎉 Grupo local criado com sucesso!');
+      }
+
+      nomeInput.value = '';
+      membrosInput.value = '';
+      await carregarGruposEMembros();
+    }
+
+    // Entrar em grupo existente usando código de convite
+    async function entrarGrupoComCodigo() {
+      const codigoInput = document.getElementById('codigoConviteInput');
+      const codigo = codigoInput.value.trim().toUpperCase();
+
+      if (!codigo) {
+        avisar('Digite o código de convite!', true);
+        return;
+      }
+
+      if (sb && estado.usuarioLogado) {
+        // Modo Online
+        const { data: gData, error: gErr } = await sb
+          .from('grupos')
+          .select('*')
+          .eq('codigo_convite', codigo)
+          .maybeSingle();
+
+        if (gErr || !gData) {
+          avisar('Grupo não encontrado! Verifique o código.', true);
+          return;
+        }
+
+        // Carregar membros para ver opções de vinculação
+        const { data: membros, error: mErr } = await sb
+          .from('grupo_membros')
+          .select('*')
+          .eq('grupo_id', gData.id);
+
+        if (mErr) {
+          avisar('Erro ao carregar membros do grupo', true);
+          return;
+        }
+
+        // Se o usuário já está no grupo, entra direto
+        const jaMembro = membros.some(m => m.user_id === estado.usuarioLogado.id);
+        if (jaMembro) {
+          estado.grupoAtivo = gData;
+          localStorage.setItem('bolao2026_grupo_id', gData.id);
+          await carregarDadosGrupo();
+          codigoInput.value = '';
+          return;
+        }
+
+        // Exibir modal de vinculação
+        abrirModalVinculacao(gData, membros);
+      } else {
+        // Modo Local
+        const localGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+        const gLocal = localGrupos.find(g => g.codigo_convite === codigo);
+
+        if (!gLocal) {
+          avisar('Grupo local não encontrado!', true);
+          return;
+        }
+
+        const localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        const membros = localMembros.filter(m => m.grupo_id === gLocal.id);
+
+        abrirModalVinculacao(gLocal, membros);
+      }
+      codigoInput.value = '';
+    }
+
+    // Abre modal para vincular o Google Auth a um nome da lista ou criar novo
+    function abrirModalVinculacao(grupo, membros) {
+      const modal = document.getElementById('modalVinculo');
+      const container = document.getElementById('listaOpcoesVinculo');
+      container.innerHTML = '';
+      modal.style.display = 'flex';
+
+      // Nomes vagos (sem user_id / não vinculados ainda)
+      const vagos = membros.filter(m => !m.user_id);
+      if (vagos.length === 0) {
+        container.innerHTML = '<p style="font-size:0.85rem; color:var(--texto-3);">Nenhum nome disponível para vinculação imediata.</p>';
+      } else {
+        vagos.forEach(v => {
+          const btn = el(`
+            <button class="opcao-vinculo-btn">
+              <span>Reivindicar: <b>${esc(v.nome)}</b></span>
+              <span class="avatar-mini" style="background:${v.cor}">${esc(iniciais(v.nome))}</span>
+            </button>
+          `);
+          btn.addEventListener('click', async () => {
+            await confirmarVinculo(grupo, v.nome, v.id);
+            modal.style.display = 'none';
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      // Eventos
+      document.getElementById('btnCancelarVinculo').onclick = () => modal.style.display = 'none';
+      document.getElementById('btnVincularNovoNome').onclick = async () => {
+        const novoNome = document.getElementById('novoNomeMembroInput').value.trim();
+        if (!novoNome) {
+          avisar('Informe um nome válido!', true);
+          return;
+        }
+        await confirmarVinculo(grupo, novoNome, null);
+        modal.style.display = 'none';
+        document.getElementById('novoNomeMembroInput').value = '';
+      };
+    }
+
+    // Executa a associação no Supabase ou LocalStorage
+    async function confirmarVinculo(grupo, nome, membroId) {
+      if (sb && estado.usuarioLogado) {
+        if (membroId) {
+          // Atualiza registro existente
+          const { error } = await sb
+            .from('grupo_membros')
+            .update({ user_id: estado.usuarioLogado.id, email: estado.usuarioLogado.email })
+            .eq('id', membroId);
+          if (error) {
+            console.error(error);
+            avisar('Erro ao reivindicar nome 😬', true);
+            return;
+          }
+        } else {
+          // Cria novo membro
+          const { error } = await sb
+            .from('grupo_membros')
+            .insert({
+              grupo_id: grupo.id,
+              user_id: estado.usuarioLogado.id,
+              nome,
+              email: estado.usuarioLogado.email,
+              cor: '#' + Math.floor(Math.random()*16777215).toString(16),
+              role: 'membro'
+            });
+          if (error) {
+            console.error(error);
+            avisar('Erro ao criar participante 😬', true);
+            return;
+          }
+        }
+      } else {
+        // Local
+        const localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        if (membroId) {
+          const idx = localMembros.findIndex(m => m.grupo_id === grupo.id && m.nome === nome);
+          if (idx !== -1) {
+            localMembros[idx].user_id = 'user-local';
+          }
+        } else {
+          localMembros.push({
+            grupo_id: grupo.id,
+            nome,
+            role: 'membro',
+            cor: '#' + Math.floor(Math.random()*16777215).toString(16)
+          });
+        }
+        localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+      }
+
+      avisar(`Bem-vindo ao grupo ${grupo.nome}, ${nome}! 🎉`);
+      estado.grupoAtivo = grupo;
+      localStorage.setItem('bolao2026_grupo_id', grupo.id);
+      localStorage.setItem('bolao2026_eu', nome);
+      await carregarDadosGrupo();
+    }
+
+    // Login Google OAuth
+    async function loginGoogle() {
+      if (!sb) return;
+      const { error } = await sb.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + window.location.pathname }
+      });
+      if (error) {
+        console.error(error);
+        avisar('Erro ao autenticar com o Google 😬', true);
+      }
+    }
+
+    // Logout
+    async function logoutGoogle() {
+      if (sb) {
+        await sb.auth.signOut();
+      } else {
+        localStorage.removeItem('bolao2026_eu');
+        estado.usuarioLogado = null;
+        estado.grupoAtivo = null;
+        atualizarExibicaoTelas();
+      }
+    }
+
+    // Persistência local/remota de palpites
     function persistirLocal() {
-      localStorage.setItem('bolao2026_dados', JSON.stringify({
+      if (!estado.grupoAtivo) return;
+      localStorage.setItem(`bolao2026_local_dados_${estado.grupoAtivo.id}`, JSON.stringify({
         palpites: estado.palpites,
         resultados: estado.resultados,
         jogosExtras: estado.jogosExtras,
@@ -1481,9 +2488,15 @@
 
     async function persistirPalpites(jogador, meus) {
       if (!sb) return persistirLocal();
-      const linhas = Object.entries(meus).map(([jogo_id, p]) => ({ jogador, jogo_id, casa: p.c, fora: p.f }));
+      const linhas = Object.entries(meus).map(([jogo_id, p]) => ({ 
+        grupo_id: estado.grupoAtivo.id,
+        jogador, 
+        jogo_id, 
+        casa: p.c, 
+        fora: p.f 
+      }));
       if (!linhas.length) return;
-      const { error } = await sb.from('palpites').upsert(linhas);
+      const { error } = await sb.from('palpites').upsert(linhas, { onConflict: 'grupo_id,jogador,jogo_id' });
       tratarErroRemoto(error);
     }
 
@@ -1517,7 +2530,6 @@
       return `<img class="bandeira-img" src="https://flagcdn.com/h40/${codigo}.png" alt="" loading="lazy" onerror="this.replaceWith('⚽')">`;
     }
 
-    // data de hoje no fuso de Brasília (YYYY-MM-DD)
     function hojeISO() {
       return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
     }
@@ -1527,10 +2539,12 @@
       return `${DIAS_SEMANA[d.getDay()]}, ${d.getDate()} ${MESES[d.getMonth()]}`;
     }
 
-    // palpite trava à meia-noite (Brasília) do dia do jogo
+    // Trava do palpite: 30 minutos antes do jogo começar (horário de Brasília)
+    // Se DADOS_COPA contiver horário (ex.: '17:00'), calcula com base nele. Caso contrário, assume meio-dia do dia do jogo.
     function jogoTravado(jogo) {
-      const inicio = new Date(jogo.data + 'T00:00:00-03:00');
-      return Date.now() >= inicio.getTime();
+      const hora = jogo.hora || '12:00';
+      const inicio = new Date(`${jogo.data}T${hora}:00-03:00`);
+      return Date.now() >= (inicio.getTime() - 30 * 60 * 1000);
     }
 
     function pontosDoPalpite(palpite, resultado) {
@@ -1565,18 +2579,25 @@
     }
 
     /* =====================================================================
-       IDENTIDADE (quem sou eu)
+       IDENTIDADE (quem sou eu no grupo ativo)
        ===================================================================== */
     function renderizarIdentidade() {
       const caixa = document.getElementById('quemSou');
       caixa.innerHTML = '';
-      for (const j of JOGADORES) {
+      
+      if (estado.jogadoresGrupo.length === 0) {
+        caixa.appendChild(el(`<p class="vazio">Nenhum jogador cadastrado no grupo.</p>`));
+        return;
+      }
+
+      estado.jogadoresGrupo.forEach(j => {
         const ativo = estado.eu === j.nome;
         const chip = el(`
-      <button class="chip-jogador ${ativo ? 'ativo' : ''}" aria-pressed="${ativo}">
-        <span class="avatar" style="background:${j.cor}">${esc(iniciais(j.nome))}</span>
-        ${esc(j.nome)}
-      </button>`);
+          <button class="chip-jogador ${ativo ? 'ativo' : ''}" aria-pressed="${ativo}">
+            <span class="avatar" style="background:${j.cor}">${esc(iniciais(j.nome))}</span>
+            ${esc(j.nome)}
+          </button>
+        `);
         chip.addEventListener('click', () => {
           estado.eu = j.nome;
           estado.rascunho = {};
@@ -1586,7 +2607,7 @@
           renderizarTudo();
         });
         caixa.appendChild(chip);
-      }
+      });
     }
 
     function iniciais(nome) {
@@ -1594,7 +2615,7 @@
     }
 
     function corDoJogador(nome) {
-      return (JOGADORES.find((j) => j.nome === nome) || {}).cor || '#4ce39a';
+      return (estado.jogadoresGrupo.find((j) => j.nome === nome) || {}).cor || '#4ce39a';
     }
 
     /* =====================================================================
@@ -1605,7 +2626,7 @@
       caixa.innerHTML = '';
 
       if (!estado.eu) {
-        caixa.appendChild(el(`<p class="vazio">👆 Primeiro escolha quem é você lá em cima pra liberar os palpites.</p>`));
+        caixa.appendChild(el(`<p class="vazio">👆 Primeiro escolha quem é você lá em cima para liberar os palpites.</p>`));
         document.getElementById('barraSalvar').style.display = 'none';
         return;
       }
@@ -1643,7 +2664,7 @@
       for (const [id, rotulo] of opcoes) {
         const b = el(`<button class="filtro ${estado.filtro === id ? 'ativo' : ''}" aria-pressed="${estado.filtro === id}">${rotulo}</button>`);
         b.addEventListener('click', () => {
-          coletarRascunho(); // não perde o que foi digitado ao trocar de filtro
+          coletarRascunho();
           estado.filtro = id;
           renderizarPalpites();
         });
@@ -1652,7 +2673,6 @@
       return barra;
     }
 
-    // guarda o que está digitado na tela (e ainda não foi salvo)
     function coletarRascunho() {
       document.querySelectorAll('#listaPalpites .jogo').forEach((card) => {
         const id = card.dataset.id;
@@ -1664,9 +2684,10 @@
 
     function idDoJogo(jogo) { return jogo.fase ? `x${jogo.n}` : `g${jogo.n}`; }
 
-    // Cartão gamificado: nível, XP, conquistas e progresso de palpites
     function cartaoStatus() {
       const stats = estatisticasDoJogador(estado.eu);
+      if (!stats) return el('<div></div>');
+      
       const nivel = nivelDoJogador(stats.total);
       const totalJogos = todosOsJogos().length;
       const pct = totalJogos ? Math.round((stats.palpitesFeitos / totalJogos) * 100) : 0;
@@ -1714,7 +2735,9 @@
         ? `<span class="tag-fase">${esc(jogo.fase)}</span>`
         : `<span class="tag-grupo">Grupo ${esc(jogo.grupo)}</span>`;
 
-      // Se há resultado oficial, mostra nos inputs (dourado) e palpite embaixo
+      // Mostra o horário de Brasília formatado
+      const horaStr = jogo.hora ? ` - ${jogo.hora} BRT` : '';
+
       const inputCasa = resultado
         ? `<input type="number" disabled data-lado="c" value="${resultado.c}" class="preenchido resultado-input">`
         : `<input type="number" min="0" max="20" inputmode="numeric" aria-label="Gols de ${esc(jogo.casa)}" data-lado="c" value="${estado.rascunho[id]?.c ?? palpite?.c ?? ''}" ${travado ? 'disabled' : ''}>`;
@@ -1726,7 +2749,7 @@
     <article class="jogo ${travado ? 'travado' : ''}" data-id="${id}">
       <div class="jogo-meta">
         ${etiqueta}
-        <span>${esc(jogo.cidade || '')}</span>
+        <span>${esc(jogo.cidade || '')}${horaStr}</span>
         ${travado ? '<span class="tag-travado">🔒 fechado</span>' : '<span>🟢 aberto</span>'}
       </div>
       <div class="confronto">
@@ -1765,7 +2788,7 @@
 
     function salvarPalpites() {
       if (!estado.eu) return;
-      coletarRascunho(); // inclui também o que foi digitado em outros filtros
+      coletarRascunho();
       const meus = { ...(estado.palpites[estado.eu] || {}) };
 
       for (const [id, v] of Object.entries(estado.rascunho)) {
@@ -1791,16 +2814,16 @@
       avisar(`${frases[Math.floor(Math.random() * frases.length)]} (${preenchidos} jogos)`);
       confete();
 
-      // atualiza o cartão de status sem recriar a lista (preserva o scroll)
       const cardAntigo = document.querySelector('#listaPalpites .status-jogador');
       if (cardAntigo) cardAntigo.replaceWith(cartaoStatus());
       renderizarRanking();
     }
 
     /* =====================================================================
-       ABA: RANKING
+       ABA: RANKING (Dashboard Fun Ranking)
        ===================================================================== */
     function estatisticasDoJogador(nome) {
+      if (!nome) return null;
       const meus = estado.palpites[nome] || {};
       const ordenados = todosOsJogos().slice().sort((a, b) => a.data.localeCompare(b.data) || (a.n - b.n));
       let total = 0, exatos = 0, vencedores = 0, jogosPontuados = 0;
@@ -1825,7 +2848,8 @@
     }
 
     function calcularRanking() {
-      return JOGADORES.map((j) => estatisticasDoJogador(j.nome))
+      return estado.jogadoresGrupo.map((j) => estatisticasDoJogador(j.nome))
+        .filter(Boolean)
         .sort((a, b) => b.total - a.total || b.exatos - a.exatos || b.vencedores - a.vencedores || a.nome.localeCompare(b.nome));
     }
 
@@ -1835,9 +2859,12 @@
         if (pts >= n.min) { atual = n; } else { proximo = n; break; }
       }
       const progresso = proximo
-        ? Math.min(100, Math.round(((pts - atual.min) / (proximo.min - atual.min)) * 100))
+        ? Math.min(100, Math.round(((pts - atual.min) / (proximo.min - disabledMin => disabledMin.min)) * 100))
         : 100;
-      return { ...atual, proximo, progresso };
+      // Corrigindo divisão se proximo.min - atual.min é 0
+      const range = proximo ? proximo.min - atual.min : 1;
+      const calcProg = proximo ? Math.min(100, Math.round(((pts - atual.min) / range) * 100)) : 100;
+      return { ...atual, proximo, progresso: calcProg };
     }
 
     function conquistasDesbloqueadas(stats) {
@@ -1864,8 +2891,13 @@
       const temResultado = Object.keys(estado.resultados).length > 0;
       caixa.innerHTML = '';
 
+      if (ranking.length === 0) {
+        caixa.appendChild(el(`<p class="vazio">Nenhum jogador no ranking 🤷</p>`));
+        return;
+      }
+
       if (!temResultado) {
-        caixa.appendChild(el(`<p class="vazio">🍿 A bola ainda não rolou (ou os resultados ainda não foram lançados).<br>O ranking aparece aqui assim que sair o primeiro resultado!</p>`));
+        caixa.appendChild(el(`<p class="vazio">🍿 A bola ainda não rolou (ou os resultados ainda não foram lançados).<br>O ranking com pódio e estatísticas divertidas aparece aqui assim que sair o primeiro resultado!</p>`));
         return;
       }
 
@@ -1873,11 +2905,18 @@
       const ordem = [ranking[1], ranking[0], ranking[2]].filter(Boolean);
       const podio = el('<div class="podio"></div>');
       const medalhas = { 0: '🥈', 1: '🥇', 2: '🥉' };
-      ordem.forEach((r, i) => {
-        const posReal = ranking.indexOf(r);
+      
+      // se ranking tem apenas 1 ou 2 jogadores, ajusta ordenação do pódio
+      const ordemReal = ranking.length === 1 ? [ranking[0]] : ranking.length === 2 ? [ranking[1], ranking[0]] : [ranking[1], ranking[0], ranking[2]];
+
+      ordemReal.forEach((r, i) => {
+        let med = '🥇';
+        if (ranking.indexOf(r) === 1) med = '🥈';
+        if (ranking.indexOf(r) === 2) med = '🥉';
+
         podio.appendChild(el(`
-      <div class="podio-item ${posReal === 0 ? 'p1' : ''}">
-        <span class="pos">${medalhas[i]}</span>
+      <div class="podio-item ${ranking.indexOf(r) === 0 ? 'p1' : ''}">
+        <span class="pos">${med}</span>
         <div class="avatar" style="background:${r.cor}">${esc(iniciais(r.nome))}</div>
         <div class="nome">${esc(r.nome)}</div>
         <div class="pts">${r.total} pts</div>
@@ -1919,8 +2958,106 @@
     }
 
     /* =====================================================================
-       ABA: RESULTADOS (admin)
+       ABA: RESULTADOS & GERENCIA DO GRUPO (admin)
        ===================================================================== */
+    async function salvarPremiosGrupo() {
+      const p1 = document.getElementById('premio1').value.trim();
+      const p2 = document.getElementById('premio2').value.trim();
+      const p3 = document.getElementById('premio3').value.trim();
+      
+      const novosPremios = { "1": p1, "2": p2, "3": p3 };
+      estado.grupoAtivo.premios = novosPremios;
+
+      if (sb) {
+        const { error } = await sb
+          .from('grupos')
+          .update({ premios: novosPremios })
+          .eq('id', estado.grupoAtivo.id);
+        if (error) {
+          console.error(error);
+          avisar('Erro ao atualizar prêmios online', true);
+          return;
+        }
+      } else {
+        const localGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+        const idx = localGrupos.findIndex(g => g.id === estado.grupoAtivo.id);
+        if (idx !== -1) {
+          localGrupos[idx].premios = novosPremios;
+          localStorage.setItem('bolao2026_local_grupos', JSON.stringify(localGrupos));
+        }
+      }
+      avisar('🏆 Prêmios salvos com sucesso!');
+      renderizarPremios();
+      renderizarResultados();
+    }
+
+    async function adicionarMembroGerencia() {
+      const nomeInput = document.getElementById('novoMembroGerenciaNome');
+      const nome = nomeInput.value.trim();
+      if (!nome) {
+        avisar('Preencha o nome do participante!', true);
+        return;
+      }
+
+      if (sb) {
+        const { error } = await sb
+          .from('grupo_membros')
+          .insert({
+            grupo_id: estado.grupoAtivo.id,
+            nome,
+            role: 'membro',
+            cor: '#' + Math.floor(Math.random()*16777215).toString(16)
+          });
+        if (error) {
+          console.error(error);
+          avisar('Erro ao adicionar participante online', true);
+          return;
+        }
+      } else {
+        const localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        localMembros.push({
+          grupo_id: estado.grupoAtivo.id,
+          nome,
+          role: 'membro',
+          cor: '#' + Math.floor(Math.random()*16777215).toString(16)
+        });
+        localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+      }
+      
+      nomeInput.value = '';
+      avisar(`👤 ${nome} adicionado com sucesso!`);
+      await carregarDadosGrupo();
+    }
+
+    async function removerMembroGerencia(membroNome) {
+      if (membroNome === estado.eu) {
+        avisar('Você não pode se remover do grupo!', true);
+        return;
+      }
+      
+      if (!confirm(`Tem certeza que deseja remover ${membroNome} e todos os palpites dele?`)) return;
+
+      if (sb) {
+        const { error } = await sb
+          .from('grupo_membros')
+          .delete()
+          .eq('grupo_id', estado.grupoAtivo.id)
+          .eq('nome', membroNome);
+        if (error) {
+          console.error(error);
+          avisar('Erro ao remover participante online', true);
+          return;
+        }
+      } else {
+        let localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        localMembros = localMembros.filter(m => !(m.grupo_id === estado.grupoAtivo.id && m.nome === membroNome));
+        localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+      }
+
+      avisar(`👤 ${membroNome} removido do grupo.`);
+      await carregarDadosGrupo();
+    }
+
     function renderizarResultados() {
       const caixa = document.getElementById('conteudoResultados');
       caixa.innerHTML = '';
@@ -1929,13 +3066,78 @@
         const cartao = el(`
       <div class="cartao" style="text-align:center">
         <h3>🔐 Área do administrador</h3>
-        <p style="margin-bottom:16px">Só o dono do bolão lança os resultados oficiais e cadastra os jogos do mata-mata.</p>
+        <p style="margin-bottom:16px">Só o dono/administrador do grupo lança os resultados oficiais, cadastra jogos e configura prêmios.</p>
+        <p style="font-size:0.82rem; color:var(--texto-3)">Caso seja o criador local, habilite digitando a senha mestra.</p>
         <button class="botao fantasma" id="botaoAdmin">Entrar como admin</button>
       </div>`);
         cartao.querySelector('#botaoAdmin').addEventListener('click', () => abrirModalAdmin());
         caixa.appendChild(cartao);
         return;
       }
+
+      // Painel de Gerenciamento do Grupo (Apenas para Admin)
+      const premios = estado.grupoAtivo?.premios || {};
+      const cardGerencia = el(`
+        <div class="cartao">
+          <h3>⚙️ Painel do Admin — Grupo: ${esc(estado.grupoAtivo.nome)}</h3>
+          
+          <div style="margin-top:16px;">
+            <h4>🏆 Configurar Prêmios</h4>
+            <table class="config-premios-tabela">
+              <tr>
+                <td><label for="premio1">🥇 1º Lugar:</label></td>
+                <td><input type="text" id="premio1" class="input-dashboard" value="${esc(premios["1"] || '')}" placeholder="Ex: R$ 150 + Troféu"></td>
+              </tr>
+              <tr>
+                <td><label for="premio2">🥈 2º Lugar:</label></td>
+                <td><input type="text" id="premio2" class="input-dashboard" value="${esc(premios["2"] || '')}" placeholder="Ex: R$ 50"></td>
+              </tr>
+              <tr>
+                <td><label for="premio3">🥉 3º Lugar:</label></td>
+                <td><input type="text" id="premio3" class="input-dashboard" value="${esc(premios["3"] || '')}" placeholder="Ex: Caixa de Bombom"></td>
+              </tr>
+            </table>
+            <button class="botao" id="btnSalvarPremios" style="padding: 8px 16px; font-size:0.85rem;">Salvar Prêmios</button>
+          </div>
+
+          <div style="margin-top:24px; border-top: 1px solid var(--card-borda); padding-top:16px;">
+            <h4>👤 Adicionar Integrante Manual</h4>
+            <p style="font-size: 0.8rem; color:var(--texto-2); margin-bottom:8px;">
+              Adicione nomes de amigos. Eles poderão reivindicar o nome ao entrar no grupo com o código.
+            </p>
+            <div style="display:flex; gap:10px;">
+              <input type="text" id="novoMembroGerenciaNome" class="input-dashboard" placeholder="Nome do amigo (ex: Bruno)">
+              <button class="botao" id="btnAdicionarMembroGerencia" style="padding: 8px 16px;">Adicionar</button>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <h4>Membros Atuais</h4>
+            <div id="listaMembrosGerenciar" class="lista-membros-gerencia"></div>
+          </div>
+        </div>
+      `);
+
+      // Eventos Gerência
+      cardGerencia.querySelector('#btnSalvarPremios').onclick = salvarPremiosGrupo;
+      cardGerencia.querySelector('#btnAdicionarMembroGerencia').onclick = adicionarMembroGerencia;
+      
+      const listaMembros = cardGerencia.querySelector('#listaMembrosGerenciar');
+      estado.jogadoresGrupo.forEach(m => {
+        const item = el(`
+          <div class="membro-gerencia-item">
+            <span><b>${esc(m.nome)}</b> (${esc(m.role)}) ${m.user_id ? '🟢 logado' : '⚪ pendente'}</span>
+            ${m.nome !== estado.eu ? `<button data-nome="${esc(m.nome)}">Remover</button>` : ''}
+          </div>
+        `);
+        const btnRemover = item.querySelector('button');
+        if (btnRemover) {
+          btnRemover.onclick = () => removerMembroGerencia(m.nome);
+        }
+        listaMembros.appendChild(item);
+      });
+
+      caixa.appendChild(cardGerencia);
 
       // formulário de novo jogo do mata-mata
       const form = el(`
@@ -2029,21 +3231,19 @@
 
     function renderizarTudo(preservarEdicao = false) {
       renderizarIdentidade();
-      // não recria a lista de palpites se o usuário está digitando e chegou
-      // uma atualização ao vivo de outro jogador
       if (!(preservarEdicao && estado.alteracoesPendentes)) renderizarPalpites();
       renderizarRanking();
       renderizarResultados();
     }
 
-    // === Modal bonito para login do admin ===
+    // Modal para senha mestra admin (fallback)
     function abrirModalAdmin() {
       const overlay = document.createElement('div');
       overlay.className = 'modal-overlay';
       overlay.innerHTML = `
         <div class="modal-box">
           <h3>🔐 Entrar como admin</h3>
-          <p>Digite a senha para acessar o painel de resultados</p>
+          <p>Digite a senha mestra para gerenciar o bolão</p>
           <input type="password" id="inputSenhaAdmin" placeholder="Senha do administrador" autocomplete="current-password">
           <div class="modal-acoes">
             <button class="btn-cancelar" id="btnModalCancelar">Cancelar</button>
@@ -2058,7 +3258,6 @@
       function confirmar() {
         if (inp.value === SENHA_ADMIN) {
           estado.admin = true;
-          sessionStorage.setItem('bolao2026_admin', '1');
           overlay.remove();
           renderizarResultados();
           avisar('🔓 Modo admin ativado');
@@ -2080,7 +3279,37 @@
       overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
     }
 
-    renderizarTudo();
+    // Configuração de Eventos Dashboard & Perfil
+    document.getElementById('btnGoogleLogin').onclick = loginGoogle;
+    document.getElementById('btnGoogleLogout').onclick = logoutGoogle;
+    
+    document.getElementById('btnIrDashboard').onclick = () => {
+      estado.grupoAtivo = null;
+      localStorage.removeItem('bolao2026_grupo_id');
+      atualizarExibicaoTelas();
+    };
+
+    document.getElementById('btnCriarGrupo').onclick = criarGrupo;
+    document.getElementById('btnEntrarGrupo').onclick = entrarGrupoComCodigo;
+    
+    document.getElementById('btnCopiarCodigoShare').onclick = () => {
+      const codigo = document.getElementById('codigoGrupoShare').textContent;
+      navigator.clipboard.writeText(codigo).then(() => {
+        avisar('📋 Código copiado para a área de transferência!');
+      });
+    };
+
+    document.getElementById('seletorGrupoAtivo').onchange = async (e) => {
+      const gId = e.target.value;
+      const g = estado.meusGrupos.find(grupo => grupo.id === gId);
+      if (g) {
+        estado.grupoAtivo = g;
+        localStorage.setItem('bolao2026_grupo_id', g.id);
+        await carregarDadosGrupo();
+      }
+    };
+
+    // Inicialização da Aplicação
     iniciarPersistencia();
   </script>
 </body>
