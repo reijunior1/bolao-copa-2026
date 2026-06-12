@@ -2858,13 +2858,9 @@
       for (const n of NIVEIS) {
         if (pts >= n.min) { atual = n; } else { proximo = n; break; }
       }
-      const progresso = proximo
-        ? Math.min(100, Math.round(((pts - atual.min) / (proximo.min - disabledMin => disabledMin.min)) * 100))
-        : 100;
-      // Corrigindo divisão se proximo.min - atual.min é 0
       const range = proximo ? proximo.min - atual.min : 1;
-      const calcProg = proximo ? Math.min(100, Math.round(((pts - atual.min) / range) * 100)) : 100;
-      return { ...atual, proximo, progresso: calcProg };
+      const progresso = proximo ? Math.min(100, Math.round(((pts - atual.min) / range) * 100)) : 100;
+      return { ...atual, proximo, progresso };
     }
 
     function conquistasDesbloqueadas(stats) {
