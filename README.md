@@ -1,5 +1,4 @@
-# ⚽ Bolão da Copa 2026 — Reinaldo, Fred, Rupinha, Gersinho e Otávio
-
+# ⚽ Bolão da Copa 2026.
 Página única (`index.html`, sem build, sem dependências) para o bolão da galera
 durante a Copa do Mundo 2026. Já vem com **os 72 jogos reais da fase de grupos**
 embutidos; os jogos do mata-mata o admin cadastra pela própria página conforme
