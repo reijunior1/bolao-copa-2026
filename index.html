@@ -3055,6 +3055,39 @@
       await carregarDadosGrupo();
     }
 
+    async function excluirGrupo() {
+      if (!confirm(`🚨 ATENÇÃO: Tem certeza que deseja EXCLUIR permanentemente o grupo "${estado.grupoAtivo.nome}"? Isso vai apagar todos os palpites e integrantes para sempre!`)) return;
+      
+      const gId = estado.grupoAtivo.id;
+      
+      if (sb) {
+        const { error } = await sb
+          .from('grupos')
+          .delete()
+          .eq('id', gId);
+        if (error) {
+          console.error(error);
+          avisar('Erro ao excluir grupo online 😬', true);
+          return;
+        }
+      } else {
+        let localGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+        localGrupos = localGrupos.filter(g => g.id !== gId);
+        localStorage.setItem('bolao2026_local_grupos', JSON.stringify(localGrupos));
+        
+        let localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        localMembros = localMembros.filter(m => m.grupo_id !== gId);
+        localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+        
+        localStorage.removeItem(`bolao2026_local_dados_${gId}`);
+      }
+      
+      avisar('🔥 Grupo excluído com sucesso!');
+      estado.grupoAtivo = null;
+      localStorage.removeItem('bolao2026_grupo_id');
+      await carregarGruposEMembros();
+    }
+
     function renderizarResultados() {
       const caixa = document.getElementById('conteudoResultados');
       caixa.innerHTML = '';
@@ -3112,12 +3145,17 @@
             <h4>Membros Atuais</h4>
             <div id="listaMembrosGerenciar" class="lista-membros-gerencia"></div>
           </div>
+
+          <div style="margin-top:32px; border-top: 1px solid var(--card-borda); padding-top:20px;">
+            <button class="botao" id="btnExcluirGrupo" style="background: var(--vermelho); width:100%; border:none; padding:10px 0; font-weight:700;">⚠️ Excluir este Grupo</button>
+          </div>
         </div>
       `);
 
       // Eventos Gerência
       cardGerencia.querySelector('#btnSalvarPremios').onclick = salvarPremiosGrupo;
       cardGerencia.querySelector('#btnAdicionarMembroGerencia').onclick = adicionarMembroGerencia;
+      cardGerencia.querySelector('#btnExcluirGrupo').onclick = excluirGrupo;
       
       const listaMembros = cardGerencia.querySelector('#listaMembrosGerenciar');
       estado.jogadoresGrupo.forEach(m => {
