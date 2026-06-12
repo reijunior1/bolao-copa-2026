@@ -396,7 +396,11 @@
     .nome-time {
       font-weight: 600;
       font-size: 0.98rem;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
+      word-break: normal;
+      hyphens: auto;
+      min-width: 0;
+      line-height: 1.25;
     }
 
     .placar {
@@ -686,7 +690,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
-      align-items: end;
+      align-items: stretch;
       margin: 26px 0 22px;
     }
 
@@ -721,10 +725,9 @@
     }
 
     .podio-item.p1 {
-      padding-top: 28px;
-      padding-bottom: 24px;
       border-color: rgba(245, 197, 66, 0.45);
       background: linear-gradient(180deg, rgba(245, 197, 66, 0.1), var(--card));
+      box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.2);
     }
 
     .podio-item.p1 .pts {
@@ -1535,6 +1538,83 @@
       font-size: 0.8rem;
     }
     /* ======================================================= */
+    }
+
+    /* ============ Responsividade Mobile ============ */
+
+    /* Telas muito pequenas (≤ 380px) */
+    @media (max-width: 380px) {
+      .confronto {
+        gap: 6px;
+      }
+
+      .nome-time {
+        font-size: 0.78rem;
+      }
+
+      .placar input {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      .bandeira-img {
+        height: 20px;
+      }
+
+      .time {
+        gap: 6px;
+      }
+
+      /* Nav tabs — esconde texto, mantém ícone */
+      .aba {
+        font-size: 0.7rem;
+        padding: 10px 4px;
+        gap: 4px;
+      }
+
+      nav.abas {
+        gap: 3px;
+        padding: 5px;
+      }
+    }
+
+    /* Telas pequenas (381px – 480px) */
+    @media (min-width: 381px) and (max-width: 480px) {
+      .confronto {
+        gap: 8px;
+      }
+
+      .nome-time {
+        font-size: 0.85rem;
+      }
+
+      .placar input {
+        width: 46px;
+        height: 44px;
+        font-size: 1.1rem;
+      }
+
+      .bandeira-img {
+        height: 23px;
+      }
+
+      .aba {
+        font-size: 0.78rem;
+        padding: 10px 6px;
+      }
+    }
+
+    /* Telas médias (481px – 640px) */
+    @media (min-width: 481px) and (max-width: 640px) {
+      .nome-time {
+        font-size: 0.92rem;
+      }
+
+      .placar input {
+        width: 48px;
+        height: 46px;
+      }
     }
   </style>
 </head>
