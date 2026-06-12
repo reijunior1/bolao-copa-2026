@@ -44,9 +44,30 @@ CREATE POLICY "bolao aberto grupos" ON grupos FOR ALL USING (true) WITH CHECK (t
 DROP POLICY IF EXISTS "bolao aberto membros" ON grupo_membros;
 CREATE POLICY "bolao aberto membros" ON grupo_membros FOR ALL USING (true) WITH CHECK (true);
 
--- Ajustar política de palpites para permitir palpites por grupo
+-- Ajustar política de palpites para que cada usuário só edite os próprios palpites online
 DROP POLICY IF EXISTS "bolao aberto" ON palpites;
-CREATE POLICY "bolao aberto" ON palpites FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "bolao aberto" ON palpites 
+  FOR ALL 
+  USING (
+    EXISTS (
+      SELECT 1 FROM grupo_membros
+      WHERE grupo_membros.grupo_id = palpites.grupo_id
+        AND grupo_membros.nome = palpites.jogador
+        AND grupo_membros.user_id = auth.uid()
+    )
+  )
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM grupo_membros
+      WHERE grupo_membros.grupo_id = palpites.grupo_id
+        AND grupo_membros.nome = palpites.jogador
+        AND grupo_membros.user_id = auth.uid()
+    )
+  );
+
+-- Habilitar leitura pública para todos verem os palpites uns dos outros
+DROP POLICY IF EXISTS "leitura publica palpites" ON palpites;
+CREATE POLICY "leitura publica palpites" ON palpites FOR SELECT USING (true);
 
 -- 5. Habilitar replicação em tempo real para as novas tabelas
 -- Se der erro de "already member of publication", significa que o banco já cadastrou a tabela grupos na replicação.

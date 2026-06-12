@@ -2649,6 +2649,12 @@
     /* =====================================================================
        ABA: PALPITES
        ===================================================================== */
+    function podeEditarPalpite() {
+      if (!sb || !estado.usuarioLogado) return true; // No modo local/offline qualquer um edita tudo
+      const meuMembro = estado.jogadoresGrupo.find(m => m.user_id === estado.usuarioLogado.id);
+      return meuMembro && meuMembro.nome === estado.eu;
+    }
+
     function renderizarPalpites() {
       const caixa = document.getElementById('listaPalpites');
       caixa.innerHTML = '';
@@ -2683,7 +2689,7 @@
         caixa.appendChild(cardDeJogo(jogo, meus[idDoJogo(jogo)]));
       }
 
-      document.getElementById('barraSalvar').style.display = 'flex';
+      document.getElementById('barraSalvar').style.display = podeEditarPalpite() ? 'flex' : 'none';
     }
 
     function barraFiltros() {
@@ -2766,12 +2772,13 @@
       // Mostra o horário de Brasília formatado
       const horaStr = jogo.hora ? ` - ${jogo.hora} BRT` : '';
 
+      const editavel = podeEditarPalpite() && !travado;
       const inputCasa = resultado
         ? `<input type="number" disabled data-lado="c" value="${resultado.c}" class="preenchido resultado-input">`
-        : `<input type="number" min="0" max="20" inputmode="numeric" aria-label="Gols de ${esc(jogo.casa)}" data-lado="c" value="${estado.rascunho[id]?.c ?? palpite?.c ?? ''}" ${travado ? 'disabled' : ''}>`;
+        : `<input type="number" min="0" max="20" inputmode="numeric" aria-label="Gols de ${esc(jogo.casa)}" data-lado="c" value="${estado.rascunho[id]?.c ?? palpite?.c ?? ''}" ${editavel ? '' : 'disabled'}>`;
       const inputFora = resultado
         ? `<input type="number" disabled data-lado="f" value="${resultado.f}" class="preenchido resultado-input">`
-        : `<input type="number" min="0" max="20" inputmode="numeric" aria-label="Gols de ${esc(jogo.fora)}" data-lado="f" value="${estado.rascunho[id]?.f ?? palpite?.f ?? ''}" ${travado ? 'disabled' : ''}>`;
+        : `<input type="number" min="0" max="20" inputmode="numeric" aria-label="Gols de ${esc(jogo.fora)}" data-lado="f" value="${estado.rascunho[id]?.f ?? palpite?.f ?? ''}" ${editavel ? '' : 'disabled'}>`;
 
       const card = el(`
     <article class="jogo ${travado ? 'travado' : ''}" data-id="${id}">
@@ -2816,6 +2823,10 @@
 
     function salvarPalpites() {
       if (!estado.eu) return;
+      if (!podeEditarPalpite()) {
+        avisar('⚠️ Você só pode salvar palpites para você mesmo!', true);
+        return;
+      }
       coletarRascunho();
       const meus = { ...(estado.palpites[estado.eu] || {}) };
 
