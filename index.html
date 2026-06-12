@@ -3291,8 +3291,9 @@
     
     document.getElementById('btnCopiarCodigoShare').onclick = () => {
       const codigo = document.getElementById('codigoGrupoShare').textContent;
-      navigator.clipboard.writeText(codigo).then(() => {
-        avisar('📋 Código copiado para a área de transferência!');
+      const link = window.location.origin + window.location.pathname + '?convite=' + codigo;
+      navigator.clipboard.writeText(link).then(() => {
+        avisar('📋 Link de convite copiado para a área de transferência!');
       });
     };
 
@@ -3306,8 +3307,43 @@
       }
     };
 
+    // Verifica se há convite na URL ou pendente no localStorage
+    function verificarParametrosURL() {
+      const params = new URLSearchParams(window.location.search);
+      const convite = params.get('convite');
+      
+      if (convite) {
+        // Limpa parâmetro da URL para manter limpo o histórico
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Se precisar logar primeiro, salva para resgatar pós-login
+        if (sb && !estado.usuarioLogado) {
+          localStorage.setItem('bolao2026_convite_pendente', convite);
+          return;
+        }
+
+        const input = document.getElementById('codigoConviteInput');
+        if (input) {
+          input.value = convite.toUpperCase();
+          entrarGrupoComCodigo();
+        }
+      } else {
+        const pendente = localStorage.getItem('bolao2026_convite_pendente');
+        if (pendente && (!sb || estado.usuarioLogado)) {
+          localStorage.removeItem('bolao2026_convite_pendente');
+          const input = document.getElementById('codigoConviteInput');
+          if (input) {
+            input.value = pendente.toUpperCase();
+            entrarGrupoComCodigo();
+          }
+        }
+      }
+    }
+
     // Inicialização da Aplicação
-    iniciarPersistencia();
+    iniciarPersistencia().then(() => {
+      verificarParametrosURL();
+    });
   </script>
 </body>
 
