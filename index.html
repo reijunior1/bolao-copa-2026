@@ -391,8 +391,9 @@
 
     .bandeira-img {
       display: block;
+      width: 44px;
       height: 30px;
-      width: auto;
+      object-fit: cover;
       border-radius: 5px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
     }
@@ -1084,7 +1085,9 @@
       }
 
       .bandeira-img {
+        width: 30px;
         height: 20px;
+        object-fit: cover;
       }
 
       .filtros {
@@ -1549,6 +1552,7 @@
     /* Telas muito pequenas (≤ 360px) */
     @media (max-width: 360px) {
       .bandeira-img {
+        width: 35px;
         height: 24px;
       }
 
@@ -1578,6 +1582,7 @@
     /* Telas pequenas (361px – 480px) */
     @media (min-width: 361px) and (max-width: 480px) {
       .bandeira-img {
+        width: 40px;
         height: 27px;
       }
 
