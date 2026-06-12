@@ -75,5 +75,43 @@ CREATE POLICY "leitura publica palpites" ON palpites FOR SELECT USING (true);
 -- ALTER PUBLICATION supabase_realtime ADD TABLE grupos;
 ALTER PUBLICATION supabase_realtime ADD TABLE grupo_membros;
 
--- 6. Atualizar bancos existentes (rode isto caso já tenha as tabelas criadas)
+-- 6. Criar tabela de resultados (placar oficial dos jogos)
+CREATE TABLE IF NOT EXISTS resultados (
+  jogo_id text PRIMARY KEY,
+  casa integer NOT NULL,
+  fora integer NOT NULL,
+  atualizado_em timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE resultados ENABLE ROW LEVEL SECURITY;
+
+-- Leitura pública (todos podem ver os resultados)
+DROP POLICY IF EXISTS "resultados leitura publica" ON resultados;
+CREATE POLICY "resultados leitura publica" ON resultados FOR SELECT USING (true);
+
+-- Somente usuários autenticados podem inserir/atualizar resultados
+-- (Na prática o admin do grupo faz isso; sem RLS estrito aqui pois o app valida no frontend)
+DROP POLICY IF EXISTS "resultados escrita admin" ON resultados;
+CREATE POLICY "resultados escrita admin" ON resultados FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
+
+-- 7. Criar tabela de jogos extras (partidas adicionadas pelo admin)
+CREATE TABLE IF NOT EXISTS jogos_extras (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  n integer NOT NULL,
+  fase text,
+  data date NOT NULL,
+  casa text NOT NULL,
+  fora text NOT NULL,
+  cidade text,
+  criado_em timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE jogos_extras ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "jogos extras publico" ON jogos_extras;
+CREATE POLICY "jogos extras publico" ON jogos_extras FOR ALL USING (true) WITH CHECK (true);
+
+-- 8. Atualizar bancos existentes (rode isto caso já tenha as tabelas criadas)
 ALTER TABLE grupos ADD COLUMN IF NOT EXISTS palpites_liberados boolean DEFAULT false;
+
+-- Ativar tempo real para resultados (fundamental para o ranking atualizar instantaneamente)
+ALTER PUBLICATION supabase_realtime ADD TABLE resultados;

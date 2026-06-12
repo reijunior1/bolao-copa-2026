@@ -2508,6 +2508,13 @@
       const { error } = r
         ? await sb.from('resultados').upsert({ jogo_id: jogoId, casa: r.c, fora: r.f })
         : await sb.from('resultados').delete().eq('jogo_id', jogoId);
+      if (error) {
+        avisar('❌ Erro ao salvar resultado: ' + (error.message || 'falha desconhecida'), true);
+      } else if (r) {
+        avisar(`✅ Resultado salvo: ${r.c} × ${r.f}`);
+      } else {
+        avisar('🗑️ Resultado removido');
+      }
       tratarErroRemoto(error);
     }
 
@@ -3419,31 +3426,39 @@
         const id = idDoJogo(jogo);
         const r = estado.resultados[id];
         const etiqueta = jogo.fase ? `<span class="tag-fase">${esc(jogo.fase)}</span>` : `<span class="tag-grupo">Grupo ${esc(jogo.grupo)}</span>`;
+        const statusBadge = r
+          ? `<span style="background:#0d9e6e;color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:99px;font-weight:700;">✅ ${r.c}–${r.f}</span>`
+          : `<span style="background:#555;color:#ccc;font-size:0.7rem;padding:2px 8px;border-radius:99px;">pendente</span>`;
         const card = el(`
       <article class="jogo" data-id="${id}">
-        <div class="jogo-meta">${etiqueta}<span>${dataBonita(jogo.data)}</span></div>
+        <div class="jogo-meta">${etiqueta}<span>${dataBonita(jogo.data)}</span>${statusBadge}</div>
         <div class="confronto">
           <div class="time casa"><span class="bandeira">${bandeira(jogo.casa)}</span><span class="nome-time">${esc(jogo.casa)}</span></div>
           <div class="placar">
-            <input type="number" min="0" max="20" inputmode="numeric" data-lado="c" value="${r?.c ?? ''}" aria-label="Gols de ${esc(jogo.casa)}">
+            <input type="number" min="0" max="20" inputmode="numeric" data-lado="c" value="${r?.c ?? ''}" placeholder="–" aria-label="Gols de ${esc(jogo.casa)}" style="width:52px;text-align:center;font-size:1.4rem;">
             <span class="x">✕</span>
-            <input type="number" min="0" max="20" inputmode="numeric" data-lado="f" value="${r?.f ?? ''}" aria-label="Gols de ${esc(jogo.fora)}">
+            <input type="number" min="0" max="20" inputmode="numeric" data-lado="f" value="${r?.f ?? ''}" placeholder="–" aria-label="Gols de ${esc(jogo.fora)}" style="width:52px;text-align:center;font-size:1.4rem;">
           </div>
           <div class="time fora"><span class="bandeira">${bandeira(jogo.fora)}</span><span class="nome-time">${esc(jogo.fora)}</span></div>
         </div>
+        <div style="display:flex;justify-content:center;margin-top:8px;">
+          <button class="btn-salvar-resultado" data-jogo-id="${id}" style="background:linear-gradient(135deg,#0d9e6e,#0a7a56);color:#fff;border:none;padding:8px 28px;border-radius:99px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:transform 0.15s,box-shadow 0.15s;box-shadow:0 2px 8px rgba(13,158,110,0.35);">💾 Salvar Resultado</button>
+        </div>
       </article>`);
-        card.querySelectorAll('input').forEach((inp) => {
-          inp.addEventListener('change', () => {
-            const c = card.querySelector('input[data-lado="c"]').value;
-            const f = card.querySelector('input[data-lado="f"]').value;
-            if (c !== '' && f !== '') {
-              estado.resultados[id] = { c: Number(c), f: Number(f) };
-            } else {
-              delete estado.resultados[id];
-            }
-            persistirResultado(id);
-            renderizarRanking();
-          });
+        card.querySelector('.btn-salvar-resultado').addEventListener('click', async (e) => {
+          const btn = e.currentTarget;
+          const c = card.querySelector('input[data-lado="c"]').value;
+          const f = card.querySelector('input[data-lado="f"]').value;
+          if (c === '' || f === '') {
+            avisar('⚠️ Preencha o placar dos dois times antes de salvar!', true);
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = '⏳ Salvando...';
+          estado.resultados[id] = { c: Number(c), f: Number(f) };
+          await persistirResultado(id);
+          renderizarRanking();
+          renderizarResultados();
         });
         caixa.appendChild(card);
       }
