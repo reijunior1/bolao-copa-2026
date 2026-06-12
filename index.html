@@ -1646,7 +1646,7 @@
         </div>
         <div class="cartao">
           <h3>⏰ Prazo</h3>
-          <p>O palpite de cada jogo trava automaticamente <span class="destaque">30 minutos antes do jogo começar</span>. Depois disso, ninguém mais altera — nem chorando.</p>
+          <p>O palpite de cada jogo trava automaticamente <span class="destaque">5 minutos antes do jogo começar</span>. Depois disso, ninguém mais altera — nem chorando.</p>
         </div>
         <div class="cartao">
           <h3>🥇 Desempate</h3>
@@ -2566,12 +2566,13 @@
       return Date.now() + tempoDiferenca;
     }
 
-    // Trava do palpite: 30 minutos antes do jogo começar (horário de Brasília)
+    // Trava do palpite: 5 minutos antes do jogo começar (horário de Brasília)
     // Se DADOS_COPA contiver horário (ex.: '17:00'), calcula com base nele. Caso contrário, assume meio-dia do dia do jogo.
     function jogoTravado(jogo) {
+      if (estado.grupoAtivo?.palpites_liberados) return false;
       const hora = jogo.hora || '12:00';
       const inicio = new Date(`${jogo.data}T${hora}:00-03:00`);
-      return obterHoraAtual() >= (inicio.getTime() - 30 * 60 * 1000);
+      return obterHoraAtual() >= (inicio.getTime() - 5 * 60 * 1000);
     }
 
     function pontosDoPalpite(palpite, resultado) {
@@ -2842,7 +2843,7 @@
       persistirPalpites(estado.eu, meus);
 
       if (algumBloqueado) {
-        avisar('⚠️ Palpites de jogos iniciados (ou a < 30min do início) não foram salvos!', true);
+        avisar('⚠️ Palpites de jogos iniciados (ou a < 5min do início) não foram salvos!', true);
       } else {
         const frases = [
           `Boa, ${estado.eu}! Palpite de craque ⚽`,
@@ -3141,6 +3142,78 @@
       await carregarDadosGrupo();
     }
 
+    async function alternarRoleMembroGerencia(membroNome, roleAtual) {
+      const novaRole = roleAtual === 'admin' ? 'membro' : 'admin';
+      const acaoStr = novaRole === 'admin' ? 'promover a Administrador' : 'rebaixar a Membro';
+      const confirmado = await confirmarPersonalizado(
+        'Alterar permissão',
+        `Tem certeza que deseja ${acaoStr} o participante "${membroNome}"?`,
+        false,
+        'Confirmar',
+        'Cancelar'
+      );
+      if (!confirmado) return;
+
+      if (sb) {
+        const { error } = await sb
+          .from('grupo_membros')
+          .update({ role: novaRole })
+          .eq('grupo_id', estado.grupoAtivo.id)
+          .eq('nome', membroNome);
+        if (error) {
+          console.error(error);
+          avisar('Erro ao atualizar permissão online', true);
+          return;
+        }
+      } else {
+        const localMembros = JSON.parse(localStorage.getItem('bolao2026_local_membros') || '[]');
+        const idx = localMembros.findIndex(m => m.grupo_id === estado.grupoAtivo.id && m.nome === membroNome);
+        if (idx !== -1) {
+          localMembros[idx].role = novaRole;
+          localStorage.setItem('bolao2026_local_membros', JSON.stringify(localMembros));
+        }
+      }
+      avisar(`👤 Permissão de ${membroNome} atualizada!`);
+      await carregarDadosGrupo();
+    }
+
+    async function alternarLiberacaoPalpites() {
+      const novoEstado = !estado.grupoAtivo.palpites_liberados;
+      const acaoStr = novoEstado ? 'liberar' : 'bloquear';
+      const confirmado = await confirmarPersonalizado(
+        novoEstado ? '🔓 Liberar Palpites Atrasados' : '🔒 Bloquear Palpites Atrasados',
+        `Tem certeza que deseja ${acaoStr} os palpites fora do prazo de 5 minutos para todos os participantes do grupo?`,
+        novoEstado,
+        novoEstado ? 'Liberar' : 'Bloquear',
+        'Cancelar'
+      );
+      if (!confirmado) return;
+
+      estado.grupoAtivo.palpites_liberados = novoEstado;
+
+      if (sb) {
+        const { error } = await sb
+          .from('grupos')
+          .update({ palpites_liberados: novoEstado })
+          .eq('id', estado.grupoAtivo.id);
+        if (error) {
+          console.error(error);
+          avisar('Erro ao atualizar status do grupo online', true);
+          return;
+        }
+      } else {
+        const localGrupos = JSON.parse(localStorage.getItem('bolao2026_local_grupos') || '[]');
+        const idx = localGrupos.findIndex(g => g.id === estado.grupoAtivo.id);
+        if (idx !== -1) {
+          localGrupos[idx].palpites_liberados = novoEstado;
+          localStorage.setItem('bolao2026_local_grupos', JSON.stringify(localGrupos));
+        }
+      }
+      avisar(`🏁 Palpites fora do prazo foram ${novoEstado ? 'liberados' : 'bloqueados'}!`);
+      renderizarResultados();
+      renderizarPalpites();
+    }
+
     async function excluirGrupo() {
       const confirmado = await confirmarPersonalizado(
         '🚨 Excluir Grupo permanentemente',
@@ -3223,6 +3296,18 @@
             <button class="botao" id="btnSalvarPremios" style="padding: 8px 16px; font-size:0.85rem;">Salvar Prêmios</button>
           </div>
 
+          <div style="margin-top:24px; border-top: 1px solid var(--card-borda); padding-top:16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div style="flex:1;">
+              <h4 style="margin:0;">🔓 Liberar Palpites Atrasados</h4>
+              <p style="font-size: 0.8rem; color:var(--texto-2); margin:4px 0 0 0;">
+                Permite que os participantes palpitem ou alterem jogos mesmo após o prazo de 5 minutos.
+              </p>
+            </div>
+            <button class="botao" id="btnToggleLiberarPalpites" style="padding: 8px 16px; font-size:0.85rem; background: ${estado.grupoAtivo.palpites_liberados ? 'var(--vermelho)' : 'var(--verde)'}; border: none; font-weight:600; white-space:nowrap;">
+              ${estado.grupoAtivo.palpites_liberados ? 'Bloquear Prazo' : 'Liberar Prazo'}
+            </button>
+          </div>
+
           <div style="margin-top:24px; border-top: 1px solid var(--card-borda); padding-top:16px;">
             <h4>👤 Adicionar Integrante Manual</h4>
             <p style="font-size: 0.8rem; color:var(--texto-2); margin-bottom:8px;">
@@ -3249,16 +3334,29 @@
       cardGerencia.querySelector('#btnSalvarPremios').onclick = salvarPremiosGrupo;
       cardGerencia.querySelector('#btnAdicionarMembroGerencia').onclick = adicionarMembroGerencia;
       cardGerencia.querySelector('#btnExcluirGrupo').onclick = excluirGrupo;
+      cardGerencia.querySelector('#btnToggleLiberarPalpites').onclick = alternarLiberacaoPalpites;
       
       const listaMembros = cardGerencia.querySelector('#listaMembrosGerenciar');
       estado.jogadoresGrupo.forEach(m => {
+        const ehAdmin = m.role === 'admin';
         const item = el(`
           <div class="membro-gerencia-item">
             <span><b>${esc(m.nome)}</b> (${esc(m.role)}) ${m.user_id ? '🟢 logado' : '⚪ pendente'}</span>
-            ${m.nome !== estado.eu ? `<button data-nome="${esc(m.nome)}">Remover</button>` : ''}
+            <div style="display:flex; gap:12px; align-items:center;">
+              ${m.nome !== estado.eu ? `
+                <button class="btn-role" style="background:transparent; border:none; color: var(--ouro); cursor:pointer; font-size:0.8rem; font-weight:600;">
+                  ${ehAdmin ? 'Tornar Membro' : 'Tornar Admin'}
+                </button>
+                <button class="btn-remover" style="background:transparent; border:none; color: var(--vermelho); cursor:pointer; font-size:0.8rem; font-weight:600;">Remover</button>
+              ` : ''}
+            </div>
           </div>
         `);
-        const btnRemover = item.querySelector('button');
+        const btnRole = item.querySelector('.btn-role');
+        if (btnRole) {
+          btnRole.onclick = () => alternarRoleMembroGerencia(m.nome, m.role);
+        }
+        const btnRemover = item.querySelector('.btn-remover');
         if (btnRemover) {
           btnRemover.onclick = () => removerMembroGerencia(m.nome);
         }

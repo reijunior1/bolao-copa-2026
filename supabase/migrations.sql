@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS grupos (
   criado_por uuid, -- Referência ao auth.users(id) se estiver usando Auth do Supabase
   premios jsonb DEFAULT '{"1": "Cerveja trincando", "2": "Refrigerante de 2L", "3": "Parabéns"}'::jsonb,
   codigo_convite text UNIQUE NOT NULL,
+  palpites_liberados boolean DEFAULT false,
   criado_em timestamp with time zone DEFAULT now()
 );
 
@@ -52,3 +53,6 @@ CREATE POLICY "bolao aberto" ON palpites FOR ALL USING (true) WITH CHECK (true);
 -- Você pode rodar apenas a linha que falta (grupo_membros) ou ignorar se tudo já foi executado.
 -- ALTER PUBLICATION supabase_realtime ADD TABLE grupos;
 ALTER PUBLICATION supabase_realtime ADD TABLE grupo_membros;
+
+-- 6. Atualizar bancos existentes (rode isto caso já tenha as tabelas criadas)
+ALTER TABLE grupos ADD COLUMN IF NOT EXISTS palpites_liberados boolean DEFAULT false;
