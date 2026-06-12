@@ -2710,8 +2710,12 @@
     function coletarRascunho() {
       document.querySelectorAll('#listaPalpites .jogo').forEach((card) => {
         const id = card.dataset.id;
-        const c = card.querySelector('input[data-lado="c"]').value;
-        const f = card.querySelector('input[data-lado="f"]').value;
+        const inputC = card.querySelector('input[data-lado="c"]');
+        const inputF = card.querySelector('input[data-lado="f"]');
+        if (inputC.disabled || inputF.disabled) return;
+        
+        const c = inputC.value;
+        const f = inputF.value;
         if (c !== '' || f !== '') estado.rascunho[id] = { c, f };
       });
     }
