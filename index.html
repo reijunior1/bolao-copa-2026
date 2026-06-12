@@ -3026,13 +3026,58 @@
       await carregarDadosGrupo();
     }
 
+    function confirmarPersonalizado(titulo, mensagem, eDestrutivo = false, textoConfirmar = 'Confirmar', textoCancelar = 'Cancelar') {
+      return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.innerHTML = `
+          <div class="modal-box">
+            <h3>${esc(titulo)}</h3>
+            <p style="margin-top: 10px; line-height: 1.4; color: var(--texto-2);">${esc(mensagem)}</p>
+            <div class="modal-acoes" style="margin-top: 20px;">
+              <button class="btn-cancelar" id="btnConfirmarCancelar">${esc(textoCancelar)}</button>
+              <button class="btn-confirmar" id="btnConfirmarConfirmar" style="background: ${eDestrutivo ? 'var(--vermelho)' : 'var(--verde)'}; color: #fff;">${esc(textoConfirmar)}</button>
+            </div>
+          </div>`;
+
+        document.body.appendChild(overlay);
+
+        const btnConfirmar = overlay.querySelector('#btnConfirmarConfirmar');
+        const btnCancelar = overlay.querySelector('#btnConfirmarCancelar');
+
+        btnConfirmar.addEventListener('click', () => {
+          overlay.remove();
+          resolve(true);
+        });
+
+        btnCancelar.addEventListener('click', () => {
+          overlay.remove();
+          resolve(false);
+        });
+
+        overlay.addEventListener('click', e => {
+          if (e.target === overlay) {
+            overlay.remove();
+            resolve(false);
+          }
+        });
+      });
+    }
+
     async function removerMembroGerencia(membroNome) {
       if (membroNome === estado.eu) {
         avisar('Você não pode se remover do grupo!', true);
         return;
       }
       
-      if (!confirm(`Tem certeza que deseja remover ${membroNome} e todos os palpites dele?`)) return;
+      const confirmado = await confirmarPersonalizado(
+        '👤 Remover Participante',
+        `Tem certeza que deseja remover ${membroNome} e todos os palpites dele?`,
+        true,
+        'Remover',
+        'Cancelar'
+      );
+      if (!confirmado) return;
 
       if (sb) {
         const { error } = await sb
@@ -3056,7 +3101,14 @@
     }
 
     async function excluirGrupo() {
-      if (!confirm(`🚨 ATENÇÃO: Tem certeza que deseja EXCLUIR permanentemente o grupo "${estado.grupoAtivo.nome}"? Isso vai apagar todos os palpites e integrantes para sempre!`)) return;
+      const confirmado = await confirmarPersonalizado(
+        '🚨 Excluir Grupo permanentemente',
+        `ATENÇÃO: Tem certeza que deseja EXCLUIR permanentemente o grupo "${estado.grupoAtivo.nome}"? Isso vai apagar todos os palpites e integrantes para sempre!`,
+        true,
+        'Sim, Excluir',
+        'Cancelar'
+      );
+      if (!confirmado) return;
       
       const gId = estado.grupoAtivo.id;
       
