@@ -532,6 +532,44 @@
     .modal-acoes .btn-confirmar { background: var(--verde); color: #fff; }
     .modal-acoes .btn-cancelar  { background: rgba(255,255,255,0.08); color: var(--texto-2); }
 
+    /* ===== Modal de Vinculação ===== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+      animation: fadeIn 0.18s ease;
+    }
+
+    .modal-conteudo {
+      width: 100%;
+      max-width: 450px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp 0.22s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .aviso-sem-nomes {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(245, 197, 66, 0.08);
+      border: 1px solid rgba(245, 197, 66, 0.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: var(--texto-2);
+      line-height: 1.5;
+    }
+
+    .aviso-sem-nomes span.icone { font-size: 1.1rem; flex-shrink: 0; }
+
     .pontos-jogo {
       display: inline-block;
       margin-left: 8px;
@@ -1683,19 +1721,20 @@
 
   <!-- Modal de Vinculação de Nome ao Entrar no Grupo -->
   <div class="modal-backdrop" id="modalVinculo" style="display:none">
-    <div class="modal-conteudo cartao" style="max-width: 450px;">
+    <div class="modal-conteudo cartao">
       <h3>Quem é você neste grupo? 🔑</h3>
       <p style="font-size: 0.85rem; color: var(--texto-2); margin-bottom: 12px;">
-        O administrador pré-cadastrou alguns nomes para este grupo. Você pode se vincular a um desses nomes ou criar um novo participante.
+        Reivindique seu nome pré-cadastrado abaixo ou crie um novo participante para entrar no grupo.
       </p>
-      
+
       <div id="listaOpcoesVinculo" class="opcoes-vinculo"></div>
-      
-      <div style="border-top: 1px solid var(--card-borda); padding-top: 12px; margin-top: 12px;">
-        <input type="text" id="novoNomeMembroInput" class="input-dashboard" placeholder="Ou crie um novo nome de participante" style="margin-bottom:8px;">
-        <button class="botao" id="btnVincularNovoNome" style="width:100%;">Criar e Entrar</button>
+
+      <div style="border-top: 1px solid var(--card-borda); padding-top: 14px; margin-top: 14px;">
+        <p style="font-size: 0.78rem; color: var(--texto-2); margin-bottom: 8px; font-weight: 600;">➕ Criar novo participante</p>
+        <input type="text" id="novoNomeMembroInput" class="input-dashboard" placeholder="Digite seu nome aqui" style="margin-bottom:10px;">
+        <button class="botao" id="btnVincularNovoNome" style="width:100%;">✅ Criar e Entrar no Grupo</button>
       </div>
-      
+
       <button class="botao secundario" id="btnCancelarVinculo" style="width:100%; margin-top:10px;">Cancelar</button>
     </div>
   </div>
@@ -2355,12 +2394,17 @@
       const modal = document.getElementById('modalVinculo');
       const container = document.getElementById('listaOpcoesVinculo');
       container.innerHTML = '';
+      document.getElementById('novoNomeMembroInput').value = '';
       modal.style.display = 'flex';
 
       // Nomes vagos (sem user_id / não vinculados ainda)
       const vagos = membros.filter(m => !m.user_id);
       if (vagos.length === 0) {
-        container.innerHTML = '<p style="font-size:0.85rem; color:var(--texto-3);">Nenhum nome disponível para vinculação imediata.</p>';
+        container.innerHTML = `
+          <div class="aviso-sem-nomes">
+            <span class="icone">💡</span>
+            <span>Todos os nomes já foram reivindicados. Use o campo abaixo para criar seu participante e entrar no grupo normalmente.</span>
+          </div>`;
       } else {
         vagos.forEach(v => {
           const btn = el(`
