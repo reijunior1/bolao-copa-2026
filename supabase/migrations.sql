@@ -47,5 +47,8 @@ CREATE POLICY "bolao aberto membros" ON grupo_membros FOR ALL USING (true) WITH 
 DROP POLICY IF EXISTS "bolao aberto" ON palpites;
 CREATE POLICY "bolao aberto" ON palpites FOR ALL USING (true) WITH CHECK (true);
 
--- Habilitar replicação em tempo real para as novas tabelas
-ALTER PUBLICATION supabase_realtime ADD TABLE grupos, grupo_membros;
+-- 5. Habilitar replicação em tempo real para as novas tabelas
+-- Se der erro de "already member of publication", significa que o banco já cadastrou a tabela grupos na replicação.
+-- Você pode rodar apenas a linha que falta (grupo_membros) ou ignorar se tudo já foi executado.
+-- ALTER PUBLICATION supabase_realtime ADD TABLE grupos;
+ALTER PUBLICATION supabase_realtime ADD TABLE grupo_membros;
