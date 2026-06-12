@@ -1892,6 +1892,7 @@
         try {
           const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
           sb = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+          await sincronizarHoraServidor();
           
           // Verificar sessão existente
           const { data: { session } } = await sb.auth.getSession();
@@ -2540,12 +2541,37 @@
       return `${DIAS_SEMANA[d.getDay()]}, ${d.getDate()} ${MESES[d.getMonth()]}`;
     }
 
+    let tempoDiferenca = 0;
+    async function sincronizarHoraServidor() {
+      if (!sb) return;
+      try {
+        const t0 = Date.now();
+        const response = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/`, {
+          method: 'HEAD',
+          headers: { apikey: SUPABASE_CONFIG.anonKey }
+        });
+        const serverDateStr = response.headers.get('date');
+        if (serverDateStr) {
+          const t1 = Date.now();
+          const serverTime = new Date(serverDateStr).getTime();
+          const rtt = t1 - t0;
+          tempoDiferenca = (serverTime + rtt / 2) - t1;
+        }
+      } catch (e) {
+        console.error('Erro ao sincronizar hora com o servidor:', e);
+      }
+    }
+
+    function obterHoraAtual() {
+      return Date.now() + tempoDiferenca;
+    }
+
     // Trava do palpite: 30 minutos antes do jogo começar (horário de Brasília)
     // Se DADOS_COPA contiver horário (ex.: '17:00'), calcula com base nele. Caso contrário, assume meio-dia do dia do jogo.
     function jogoTravado(jogo) {
       const hora = jogo.hora || '12:00';
       const inicio = new Date(`${jogo.data}T${hora}:00-03:00`);
-      return Date.now() >= (inicio.getTime() - 30 * 60 * 1000);
+      return obterHoraAtual() >= (inicio.getTime() - 30 * 60 * 1000);
     }
 
     function pontosDoPalpite(palpite, resultado) {
@@ -2792,10 +2818,20 @@
       coletarRascunho();
       const meus = { ...(estado.palpites[estado.eu] || {}) };
 
+      let algumBloqueado = false;
       for (const [id, v] of Object.entries(estado.rascunho)) {
         if (v.c === '' || v.f === '') continue;
         const jogo = todosOsJogos().find((j) => idDoJogo(j) === id);
-        if (jogo && !jogoTravado(jogo)) meus[id] = { c: Number(v.c), f: Number(v.f) };
+        if (jogo) {
+          if (!jogoTravado(jogo)) {
+            meus[id] = { c: Number(v.c), f: Number(v.f) };
+          } else {
+            const anterior = meus[id];
+            if (!anterior || anterior.c !== Number(v.c) || anterior.f !== Number(v.f)) {
+              algumBloqueado = true;
+            }
+          }
+        }
       }
       const preenchidos = Object.keys(meus).length;
 
@@ -2805,19 +2841,24 @@
       document.getElementById('botaoSalvar').classList.remove('pendente');
       persistirPalpites(estado.eu, meus);
 
-      const frases = [
-        `Boa, ${estado.eu}! Palpite de craque ⚽`,
-        `Salvo! Galvão aprovaria, ${estado.eu} 🎙️`,
-        `É campeão! Palpites na rede 🥅`,
-        `Anotado na súmula, ${estado.eu} 📋`,
-        `Olha o que ele fez! Palpites salvos 🔥`,
-      ];
-      avisar(`${frases[Math.floor(Math.random() * frases.length)]} (${preenchidos} jogos)`);
-      confete();
+      if (algumBloqueado) {
+        avisar('⚠️ Palpites de jogos iniciados (ou a < 30min do início) não foram salvos!', true);
+      } else {
+        const frases = [
+          `Boa, ${estado.eu}! Palpite de craque ⚽`,
+          `Salvo! Galvão aprovaria, ${estado.eu} 🎙️`,
+          `É campeão! Palpites na rede 🥅`,
+          `Anotado na súmula, ${estado.eu} 📋`,
+          `Olha o que ele fez! Palpites salvos 🔥`,
+        ];
+        avisar(`${frases[Math.floor(Math.random() * frases.length)]} (${preenchidos} jogos)`);
+        confete();
+      }
 
       const cardAntigo = document.querySelector('#listaPalpites .status-jogador');
       if (cardAntigo) cardAntigo.replaceWith(cartaoStatus());
       renderizarRanking();
+      renderizarPalpites();
     }
 
     /* =====================================================================
